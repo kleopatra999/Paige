@@ -1,0 +1,24 @@
+{
+  "name": "paige",
+  "version": "0.0.1",
+  "description": "Paige is Page Objects. yup.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Attamusc/Paige.git"
+  },
+  "author": "Sean Dunn <sean@attamusc.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Attamusc/Paige/issues"
+  },
+  "dependencies": {
+    "selenium-webdriver": "~2.33.0",
+    "jasmine-node": "~1.11.0",
+    "mocha": "~1.12.0",
+    "nbd": "~0.3"
+  }
+}
