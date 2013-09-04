@@ -6,22 +6,37 @@ var assert = require('assert'),
     Paige = require('../../paige');
 
 describe('Signup', function () {
-  describe('#index', function() {
+  describe('flow', function() {
     var Page = new Paige.SignUp.Index(config);
 
-    it('works for a user', function () {
-      Page.open();
-      Page.enterForm('test@example.com', 'password');
-      Page.submitForm()
-      //Page.enterInformation(data.username)
-      //Page.followFirstCreative()
-      //Page.finishFollowing()
-      //Page.verifyWarning()
-      //Page.visit( 'SePageNetworkProfileIndex' )
-      //Page.verifyProfileInfo()
-      //Page.verifyCreative(data.email)
-      //Page.deleteAccount()
-      Page._session.sleep(4000);
+    it('is successful when fully followed', function () {
+      Page.open()
+          .enterForm('test@example.com', 'password')
+          .submitForm()
+          .switchTo(Paige.SignUp.Info)
+          .enterInformation({
+            firstName: 'Test',
+            lastName: 'McTester',
+            username: 'testmctester',
+            location: {
+              country: 'United States',
+              state: 'New York',
+              city: 'New York'
+            },
+            dob: {
+              month: 'October',
+              day: '21',
+              year: '1989'
+            }
+          })
+//          .followFirstCreative()
+//          .finishFollowing()
+//          .verifyWarning()
+//          .visit( 'SePageNetworkProfileIndex' )
+//          .verifyProfileInfo()
+//          .verifyCreative(data.email)
+//          .deleteAccount()
+          ._session.sleep(5000)
       Page.done();
     });
   });
