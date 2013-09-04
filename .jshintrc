@@ -1,0 +1,12 @@
+{
+  "browser": true,
+  "boss": true,
+  "curly": true,
+  "devel": true,
+  "immed": true,
+  "latedef": true,
+  "newcap": true,
+  "node": true,
+  "noarg": true,
+  "undef": true
+}
