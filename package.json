@@ -2,9 +2,8 @@
   "name": "paige",
   "version": "0.0.1",
   "description": "Paige is Page Objects. yup.",
-  "main": "index.js",
   "scripts": {
-    "test": "mocha spec --recursive --reporter spec"
+    "test": "mocha --recursive --reporter spec --compilers coffee:coffee-script spec"
   },
   "repository": {
     "type": "git",
