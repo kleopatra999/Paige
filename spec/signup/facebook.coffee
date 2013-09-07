@@ -9,3 +9,4 @@ describe "Facebook Signup", ->
     it "is successful when Facebook user signs in", ->
       Page.open()
           .clickFacebookButton()
+          .done()

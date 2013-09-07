@@ -9,3 +9,4 @@ describe "Adobe Signup", ->
     it "is successful when Adobe CCM user signs in", ->
       Page.open()
           .clickAdobeButton()
+          .done()
