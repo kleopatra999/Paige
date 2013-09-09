@@ -1,33 +1,45 @@
 { describe, it } = require "selenium-webdriver/testing"
 config = require "../config.json"
-Paige = require "../../paige"
+Paige  = require "../../paige"
+Page   = {}
+
+beforeEach ->
+  Page = new Paige.SignUp.Index config
+
+afterEach (done) ->
+  Page.done done
 
 describe "Signup Errors", ->
-  describe "flow", ->
-    Page = new Paige.SignUp.Index(config)
 
-    it "is successful when fully followed", ->
+  describe "No email nor password", ->
+    it "is successful when email & password errors appear", (done) ->
       Page.open()
-
-          # nothing has been entered
           .submitForm()
-          .emailErrorVisible( true )
-          .passwordErrorVisible( true )
+          .errorsVisible(
+            emailError: true,
+            passwordError: true,
+            captchaError: false
+          )
 
-          # only email
-          .enterForm("blahblah@devSomething.be.lan", "")
+
+  describe "No password, email given", ->
+    it "is successful when only the password error appears", (done) ->
+      Page.open()
+          .enterEmail("blahblah@devSomething.be.lan")
           .submitForm()
-          .emailErrorVisible( false )
-          .passwordErrorVisible( true )
-          .clearForm()
+          .errorsVisible(
+            emailError: false,
+            passwordError: true,
+            captchaError: false
+          )
 
-          # only password
-          .enterForm("", "password")
+  describe "Only password given", ->
+    it "is successful when email & captcha errors appear", (done) ->
+      Page.open()
+          .enterPassword("password")
           .submitForm()
-          .emailErrorVisible( true )
-          .passwordErrorVisible( false )
-
-         # no ID ...
-         #.captchaErrorVisible( false )
-          .done()
-
+          .errorsVisible(
+            emailError: true,
+            passwordError: false,
+            captchaError: true
+          )
