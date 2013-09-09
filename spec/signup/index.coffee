@@ -40,30 +40,6 @@ describe "Signup", ->
               state: "NY",
               city: "New York"
           )
-#//          .verifyCreative(data.email)
-#//          .deleteAccount()
-#  ._session.sleep(5000)
-#Page.done();
-#});
-#});
-#});
-#
-#/**
-#public function signupCreative() {
-#list( $email, $username, $userid ) = $this->_mockUserData();
-#
-#self::$_page->open( 'SePageNetworkSignupIndex' )
-#->enterForm( $email )
-#->submitForm()
-#->enterInformation( $username )
-#->followFirstCreative()
-#->finishFollowing()
-#->verifyWarning()
-#->visit( 'SePageNetworkProfileIndex' )
-#->verifyProfileInfo()
-#->verifyCreative( $email )
-#->deleteAccount();
-#
-#return $email;
-#} // signupCreative
-#*/
+#          .verifyCreative(data.email)
+          .redirectTo(Paige.Account.Privacy)
+          .deleteAccount("password")
