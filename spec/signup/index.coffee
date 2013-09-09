@@ -1,12 +1,16 @@
 { describe, it } = require "selenium-webdriver/testing"
 config = require "../config.json"
 Paige = require "../../paige"
+Page = {}
+
+afterEach (done) ->
+  Page.done(done);
 
 describe "Signup", ->
   describe "flow", ->
     Page = new Paige.SignUp.Index(config)
 
-    it "is successful when fully followed", ->
+    it "is successful when fully followed", (done) ->
       Page.open()
           .enterForm("test@example.com", "password")
           .submitForm()
@@ -30,11 +34,14 @@ describe "Signup", ->
           .switchTo(Paige.Home.Welcome)
           .verifyWarning()
           .redirectTo(Paige.Profile.Info)
-#//          .visit( 'SePageNetworkProfileIndex' )
-#//          .verifyProfileInfo()
+          .verifyProfileInfo(
+            location:
+              country: "USA",
+              state: "NY",
+              city: "New York"
+          )
 #//          .verifyCreative(data.email)
 #//          .deleteAccount()
-          .done()
 #  ._session.sleep(5000)
 #Page.done();
 #});

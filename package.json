@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "Paige is Page Objects. yup.",
   "scripts": {
-    "test": "mocha --recursive --reporter spec --compilers coffee:coffee-script spec"
+    "test": "mocha --recursive --timeout 20000 --reporter spec --compilers coffee:coffee-script spec"
   },
   "repository": {
     "type": "git",
@@ -16,8 +16,9 @@
   },
   "dependencies": {
     "selenium-webdriver": "~2.33.0",
-    "jasmine-node": "~1.11.0",
     "mocha": "~1.12.0",
-    "nbd": "~0.3"
+    "nbd": "~0.3",
+    "chai": "~1.7.2",
+    "coffee-script": "~1.6.3"
   }
 }
