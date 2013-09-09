@@ -1,12 +1,16 @@
 { describe, it } = require "selenium-webdriver/testing"
 config = require "../config.json"
 Paige = require "../../paige"
+Page = {}
+
+afterEach (done) ->
+  Page.done(done)
 
 describe "Signup", ->
   describe "flow", ->
     Page = new Paige.SignUp.Index(config)
 
-    it "is successful when fully followed", ->
+    it "is successful when fully followed", (done) ->
       Page.open()
           .enterForm("test@example.com", "password")
           .enterCaptcha('phony recaptcha')
@@ -31,4 +35,9 @@ describe "Signup", ->
           .switchTo(Paige.Home.Welcome)
           .verifyWarning()
           .redirectTo(Paige.Profile.Info)
-          .done()
+          .verifyProfileInfo(
+            location:
+              country: "USA",
+              state: "NY",
+              city: "New York"
+          )
