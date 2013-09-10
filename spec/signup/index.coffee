@@ -41,6 +41,3 @@ describe "Signup", ->
               state: "NY",
               city: "New York"
           )
-#          .verifyCreative(data.email)
-          .redirectTo(Paige.Account.Privacy)
-          .deleteAccount("password")
