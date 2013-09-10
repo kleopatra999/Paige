@@ -56,10 +56,10 @@ describe("Signup", function() {
       });
     });
   });
-  
+
   describe("expedited", function() {
     it("is successful when following from project", function(done) {
-    
+
       Page.resizeWindowTo({
         width: 1280,
         height: 1024
@@ -90,8 +90,115 @@ describe("Signup", function() {
         .switchOffFrame()
       .switchTo( Paige.Project.Index )
       .followed();
-        
-      
+
+
+    });
+
+    it("is successful when adding to collection from project", function(done) {
+
+      Page.resizeWindowTo({
+        width: 1280,
+        height: 1024
+      })
+      .redirectTo( Paige.Project.Index )
+      .openFirstProject()
+      .addToCollection()
+      .switchTo( Paige.SignUp.Index )
+      .focusExpedited()
+        .enterForm(data.email(), "password")
+        .submitForm()
+        .switchTo(Paige.SignUp.Info)
+        .enterInformation({
+          firstName: data.firstName(),
+          lastName: data.lastName(),
+          username: data.username(),
+          location: {
+            country: "United States",
+            state: "New York",
+            city: "New York"
+          },
+          dob: {
+            month: "October",
+            day: "21",
+            year: "1989"
+          }
+        })
+        .switchOffFrame()
+      .switchTo( Paige.Project.Index )
+      .openedAddCollection();
+
+
+    });
+
+    it("is successful when messaging user from project", function(done) {
+
+      Page.resizeWindowTo({
+        width: 1280,
+        height: 1024
+      })
+      .redirectTo( Paige.Project.Index )
+      .openFirstProject()
+      .message()
+      .switchTo( Paige.SignUp.Index )
+      .focusExpedited()
+        .enterForm(data.email(), "password")
+        .submitForm()
+        .switchTo(Paige.SignUp.Info)
+        .enterInformation({
+          firstName: data.firstName(),
+          lastName: data.lastName(),
+          username: data.username(),
+          location: {
+            country: "United States",
+            state: "New York",
+            city: "New York"
+          },
+          dob: {
+            month: "October",
+            day: "21",
+            year: "1989"
+          }
+        })
+        .switchOffFrame()
+      .switchTo( Paige.Project.Index )
+      .openedMessage();
+
+    });
+
+    it("is successful when commenting from project", function(done) {
+
+      Page.resizeWindowTo({
+        width: 1280,
+        height: 1024
+      })
+      .redirectTo( Paige.Project.Index )
+      .openFirstProject()
+      .comment()
+      .switchTo( Paige.SignUp.Index )
+      .focusExpedited()
+        .enterForm(data.email(), "password")
+        .submitForm()
+        .switchTo(Paige.SignUp.Info)
+        .enterInformation({
+          firstName: data.firstName(),
+          lastName: data.lastName(),
+          username: data.username(),
+          location: {
+            country: "United States",
+            state: "New York",
+            city: "New York"
+          },
+          dob: {
+            month: "October",
+            day: "21",
+            year: "1989"
+          }
+        })
+        .switchOffFrame()
+      .switchTo( Paige.Project.Index );
+      //TODO: Check that comments are in viewport
+
+
     });
   });
 });
