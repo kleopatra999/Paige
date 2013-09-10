@@ -19,7 +19,7 @@ describe "Signup Errors", ->
             {
               emailError: true,
               passwordError: true,
-              captchaError: false
+              captchaError: true
             },
             'submit'
           )
@@ -34,7 +34,7 @@ describe "Signup Errors", ->
             {
               emailError: false,
               passwordError: true,
-              captchaError: false
+              captchaError: true
             },
             'submit'
           )
