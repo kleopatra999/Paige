@@ -16,9 +16,12 @@ describe "Signup Errors", ->
       Page.open()
           .submitForm()
           .errorsVisible(
-            emailError: true,
-            passwordError: true,
-            captchaError: false
+            {
+              emailError: true,
+              passwordError: true,
+              captchaError: false
+            },
+            'submit'
           )
 
 
@@ -28,9 +31,12 @@ describe "Signup Errors", ->
           .enterEmail("blahblah@devSomething.be.lan")
           .submitForm()
           .errorsVisible(
-            emailError: false,
-            passwordError: true,
-            captchaError: false
+            {
+              emailError: false,
+              passwordError: true,
+              captchaError: false
+            },
+            'submit'
           )
 
   describe "Only password given", ->
@@ -39,7 +45,10 @@ describe "Signup Errors", ->
           .enterPassword("password")
           .submitForm()
           .errorsVisible(
-            emailError: true,
-            passwordError: false,
-            captchaError: true
+            {
+              emailError: true,
+              passwordError: false,
+              captchaError: true
+            },
+            'submit'
           )
