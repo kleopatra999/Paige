@@ -19,9 +19,8 @@ describe "Signup Errors", ->
             {
               emailError: true,
               passwordError: true,
-              captchaError: true
-            },
-            'submit'
+              captchaError: false
+            }
           )
 
 
@@ -34,9 +33,8 @@ describe "Signup Errors", ->
             {
               emailError: false,
               passwordError: true,
-              captchaError: true
-            },
-            'submit'
+              captchaError: false
+            }
           )
 
   describe "Only password given", ->
@@ -49,6 +47,5 @@ describe "Signup Errors", ->
               emailError: true,
               passwordError: false,
               captchaError: true
-            },
-            'submit'
+            }
           )
