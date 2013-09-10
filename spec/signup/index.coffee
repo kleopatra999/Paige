@@ -1,14 +1,16 @@
 { describe, it } = require "selenium-webdriver/testing"
 config = require "../config.json"
 Paige = require "../../paige"
-Page = {}
+Page   = {}
+
+beforeEach ->
+  Page = new Paige.SignUp.Index config
 
 afterEach (done) ->
-  Page.done(done)
+  Page.done done
 
 describe "Signup", ->
   describe "flow", ->
-    Page = new Paige.SignUp.Index(config)
 
     it "is successful when fully followed", (done) ->
       Page.open()
