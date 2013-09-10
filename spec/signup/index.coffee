@@ -2,6 +2,7 @@
 config = require "../config.json"
 Paige = require "../../paige"
 Page = {}
+data = Paige.Helpers.data;
 
 afterEach (done) ->
   Page.done(done);
@@ -12,13 +13,13 @@ describe "Signup", ->
 
     it "is successful when fully followed", (done) ->
       Page.open()
-          .enterForm("test@example.com", "password")
+          .enterForm( data.email(), "password")
           .submitForm()
           .switchTo(Paige.SignUp.Info)
           .enterInformation(
-            firstName: "Test",
-            lastName: "McTester",
-            username: "testmctester",
+            firstName: data.firstName(),
+            lastName: data.lastName(),
+            username: data.username(),
             location:
               country: "United States",
               state: "New York",
