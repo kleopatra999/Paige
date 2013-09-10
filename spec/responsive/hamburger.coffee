@@ -15,4 +15,3 @@ describe "Responsive Nav", ->
       Page.open()
           .eatZeBurger()
           .summonZeBurger()
-          .done()
