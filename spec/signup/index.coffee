@@ -2,17 +2,21 @@
 config = require "../config.json"
 Paige = require "../../paige"
 Page = {}
-data = Paige.Helpers.data;
+data = Paige.Helpers.data
 
 afterEach (done) ->
-  Page.done(done);
+  Page.done done
 
 describe "Signup", ->
   describe "flow", ->
     Page = new Paige.SignUp.Index(config)
 
     it "is successful when fully followed", (done) ->
-      Page.open()
+      Page.resizeWindowTo(
+            width: 1280
+            height: 1024
+          )
+          .open()
           .enterForm( data.email(), "password")
           .submitForm()
           .switchTo(Paige.SignUp.Info)
