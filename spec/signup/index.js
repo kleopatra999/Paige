@@ -16,8 +16,12 @@ afterEach(function(done) {
 });
 
 describe("Signup", function() {
+
   describe("basic", function() {
     it("is successful when using find dialog", function(done) {
+    
+      var username = data.username();
+      
       Page.resizeWindowTo({
         width: 1280,
         height: 1024
@@ -29,7 +33,7 @@ describe("Signup", function() {
       .enterInformation({
         firstName: data.firstName(),
         lastName: data.lastName(),
-        username: data.username(),
+        username: username,
         location: {
           country: "United States",
           state: "New York",
@@ -46,14 +50,9 @@ describe("Signup", function() {
       .finishFollowing()
       .switchTo(Paige.Home.Welcome)
       .verifyWarning()
-      .redirectTo(Paige.Profile.Info)
-      .verifyProfileInfo({
-        location: {
-          country: "USA",
-          state: "NY",
-          city: "New York"
-        }
-      });
+      .switchTo(Paige.Profile.Info)
+      .goToUsername( username )
+      .verifyWarning();
     });
   });
 
@@ -201,4 +200,5 @@ describe("Signup", function() {
 
     });
   });
+  
 });
