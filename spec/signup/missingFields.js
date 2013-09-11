@@ -14,7 +14,6 @@ afterEach(function(done) {
 });
 
 describe("Signup Errors", function() {
-
   describe("No email nor password", function() {
     it("is successful when email & password errors appear", function(done) {
       Page.open()
@@ -52,5 +51,4 @@ describe("Signup Errors", function() {
           });
     });
   });
-
 });
