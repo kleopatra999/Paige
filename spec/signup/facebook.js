@@ -32,7 +32,11 @@ afterEach(function(done) {
 describe("Facebook Signup", function() {
   describe("flow", function() {
     it("is successful when Facebook user signs in", function() {
-      Page.open(facebookUser.login_url)
+      Page.resizeWindowTo({
+            width: 1280,
+            height: 1024
+          })
+          .open(facebookUser.login_url)
           .facebookSignin(facebookUser.email, facebookUser.password)
           .facebookAllowAllPermissions()
           .open()
@@ -58,7 +62,6 @@ describe("Facebook Signup", function() {
           .followFirstCreative()
           .finishFollowing()
           .switchTo(Paige.Home.Welcome)
-          .verifyWarning()
           .verifyFacebookSynced()
           .redirectTo(Paige.Profile.Info)
           .verifyProfileInfo({
