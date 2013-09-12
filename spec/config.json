@@ -1,9 +1,0 @@
-{
-  "test_address": "http://net.dev17.be.lan",
-
-  "webdriver_address": "http://127.0.0.1:4444/wd/hub",
-  "webdriver_config": {
-    "platform": "MAC",
-    "browserName": "firefox"
-  }
-}
