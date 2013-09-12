@@ -38,6 +38,7 @@ describe("Facebook Signup", function() {
           .open()
           .clickSocialButton("facebookButton")
           .switchTo(Paige.SignUp.Info)
+          .enterPassword("password")
           .enterInformation({
             firstName: data.firstName(),
             lastName: data.lastName(),
@@ -53,13 +54,12 @@ describe("Facebook Signup", function() {
               year: "1989"
             }
           })
-          .enterPassword("password")
           .switchTo(Paige.SignUp.Find)
           .followFirstCreative()
           .finishFollowing()
           .switchTo(Paige.Home.Welcome)
           .verifyWarning()
-          .verifyFacebookSync()
+          .verifyFacebookSynced()
           .redirectTo(Paige.Profile.Info)
           .verifyProfileInfo({
             location: {
