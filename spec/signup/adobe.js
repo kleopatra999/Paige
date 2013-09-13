@@ -1,24 +1,13 @@
-var _ref = require("selenium-webdriver/testing"),
-describe = _ref.describe,
-it = _ref.it,
-config = require("../config.json"),
-Paige = require("../../paige"),
-Page;
+var config = require("../config.json"),
+    Paige = require("../../paige"),
+    bescribe = Paige.Helpers.bescribe;
 
-beforeEach(function() {
-  Page = new Paige.SignUp.Index(config);
-});
-
-afterEach(function(done) {
-  Page.done(done);
-});
-
-describe("Adobe Signup", function() {
+bescribe("Adobe Signup", config, function(context, describe, it) {
   describe("flow", function() {
     it("is successful when Adobe CCM user signs in", function() {
-      Page.open()
-          .clickSocialButton('adobeButton')
-          .done();
+      context.Page.build()
+      .redirectTo(Paige.SignUp.Index)
+      .clickSocialButton('adobeButton');
     });
   });
 });

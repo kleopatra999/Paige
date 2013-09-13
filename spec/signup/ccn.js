@@ -1,39 +1,25 @@
-var _ref = require("selenium-webdriver/testing"),
-describe = _ref.describe,
-it = _ref.it,
-extend = require("nbd").util.extend,
-config = extend( {}, require("../config.json") ),
-Paige = require("../../paige"),
-Page = {},
-data = Paige.Helpers.data,
-original_address = config.test_address;
+var extend = require('nbd').util.extend,
+    config = extend({}, require("../config.json")),
+    Paige = require("../../paige"),
+    bescribe = Paige.Helpers.bescribe,
+    data = Paige.Helpers.data;
 
-beforeEach(function() {
-  Page = new Paige.SignUp.Index(config);
-});
+config.test_address = config.test_address.replace('//', '//adweek.');
 
-
-afterEach(function(done) {
-  Page.done(done);
-});
-
-describe("Adweek Signup", function() {
-
-  config.test_address = original_address.replace( '//', '//adweek.' );
-
+bescribe("Adweek Signup", config, function(context, describe, it) {
   var username = data.username(),
       password = "password";
 
   describe("basic", function() {
-    it("is successful when not a behance member", function(done) {
-
-      Page.resizeWindowTo({
+    it("is successful when not a behance member", function() {
+      context.Page.build()
+      .resizeWindowTo({
         width: 1280,
         height: 1024
       })
-      .redirectTo( Paige.SignUp.Challenge )
+      .redirectTo(Paige.SignUp.Challenge)
       .selectNotMember()
-      .switchTo( Paige.SignUp.Index )
+      .switchTo(Paige.SignUp.Index)
       .enterForm(data.email(), password)
       .submitForm()
       .switchTo(Paige.SignUp.Info)
@@ -53,30 +39,26 @@ describe("Adweek Signup", function() {
         }
       })
       .switchTo(Paige.Profile.Info)
-      .goToUsername( username )
+      .goToUsername(username)
       .verifyWarning();
     });
 
-    it("is successful when a behance member", function(done) {
-
-      Page.resizeWindowTo({
+    it("is successful when a behance member", function() {
+      context.Page.build()
+      .resizeWindowTo({
         width: 1280,
         height: 1024
       })
-      .redirectTo( Paige.SignUp.Challenge )
+      .redirectTo(Paige.SignUp.Challenge)
       .selectMember()
-      .switchTo( Paige.Login.Index )
+      .switchTo(Paige.Login.Index)
       .enterInformation({
         password: password,
         username: username
       })
       .submitForm()
-      .switchTo( Paige.Dashboard.Index )
+      .switchTo(Paige.Dashboard.Index)
       .isSelectedInNav();
-
     });
-
   });
-
-
 });
