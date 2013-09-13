@@ -2,7 +2,7 @@ var config = require("../config.json"),
     Paige = require("../../paige"),
     bescribe = Paige.Helpers.bescribe;
 
-bescribe.only("Signup Errors", config, function(context, describe, it) {
+bescribe("Signup Errors", config, function(context, describe, it) {
   describe("No email nor password", function() {
     it("is successful when email & password errors appear", function() {
       context.Page.build()
