@@ -17,8 +17,7 @@ describe("Adobe Signup", function() {
   describe("flow", function() {
     it("is successful when Adobe CCM user signs in", function() {
       Page.open()
-          .clickSocialButton('adobeButton')
-          .done();
+          .clickSocialButton('adobeButton');
     });
   });
 });
