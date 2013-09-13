@@ -1,32 +1,19 @@
-var _ref = require("selenium-webdriver/testing"),
-describe = _ref.describe,
-it = _ref.it,
-config = require("../config.json"),
-Paige = require("../../paige"),
-Page = {},
-data = Paige.Helpers.data;
+var config = require("../config.json"),
+    Paige = require("../../paige"),
+    data = Paige.Helpers.data,
+    bescribe = Paige.Helpers.bescribe;
 
-beforeEach(function() {
-  Page = new Paige.SignUp.Index(config);
-});
-
-
-afterEach(function(done) {
-  Page.done(done);
-});
-
-describe("Signup", function() {
-
+bescribe("Signup", config, function(context, describe, it) {
   describe("basic", function() {
-    it("is successful when using find dialog", function(done) {
-    
+    it("is successful when using find dialog", function() {
       var username = data.username();
-      
-      Page.resizeWindowTo({
+
+      context.Page.build()
+      .resizeWindowTo({
         width: 1280,
         height: 1024
       })
-      .redirectTo( Paige.SignUp.Index )
+      .redirectTo(Paige.SignUp.Index)
       .enterForm(data.email(), "password")
       .submitForm()
       .switchTo(Paige.SignUp.Info)
@@ -58,16 +45,16 @@ describe("Signup", function() {
   });
 
   describe("expedited", function() {
-    it("is successful when following from project", function(done) {
-
-      Page.resizeWindowTo({
+    it("is successful when following from project", function() {
+      context.Page.build()
+      .resizeWindowTo({
         width: 1280,
         height: 1024
       })
-      .redirectTo( Paige.Project.Index )
+      .redirectTo(Paige.Project.Index)
       .openFirstProject()
       .follow()
-      .switchTo( Paige.SignUp.Index )
+      .switchTo(Paige.SignUp.Index)
       .focusExpedited()
         .enterForm(data.email(), "password")
         .submitForm()
@@ -89,15 +76,13 @@ describe("Signup", function() {
         })
         .submitForm()
         .switchOffFrame()
-      .switchTo( Paige.Project.Index )
+      .switchTo(Paige.Project.Index)
       .followed();
-
-
     });
 
-    it("is successful when adding to collection from project", function(done) {
-
-      Page.resizeWindowTo({
+    it("is successful when adding to collection from project", function() {
+      context.Page.build()
+      .resizeWindowTo({
         width: 1280,
         height: 1024
       })
@@ -128,20 +113,18 @@ describe("Signup", function() {
         .switchOffFrame()
       .switchTo( Paige.Project.Index )
       .openedAddCollection();
-
-
     });
 
-    it("is successful when messaging user from project", function(done) {
-
-      Page.resizeWindowTo({
+    it("is successful when messaging user from project", function() {
+      context.Page.build()
+      .resizeWindowTo({
         width: 1280,
         height: 1024
       })
-      .redirectTo( Paige.Project.Index )
+      .redirectTo(Paige.Project.Index)
       .openFirstProject()
       .message()
-      .switchTo( Paige.SignUp.Index )
+      .switchTo(Paige.SignUp.Index)
       .focusExpedited()
         .enterForm(data.email(), "password")
         .submitForm()
@@ -163,14 +146,13 @@ describe("Signup", function() {
         })
         .submitForm()
         .switchOffFrame()
-      .switchTo( Paige.Project.Index )
+      .switchTo(Paige.Project.Index)
       .openedMessage();
-
     });
 
-    it("is successful when commenting from project", function(done) {
-
-      Page.resizeWindowTo({
+    it("is successful when commenting from project", function() {
+      context.Page.build()
+      .resizeWindowTo({
         width: 1280,
         height: 1024
       })
@@ -201,9 +183,7 @@ describe("Signup", function() {
         .switchOffFrame()
       .switchTo( Paige.Project.Index );
       //TODO: Check that comments are in viewport
-
-
     });
   });
-  
+
 });

@@ -1,0 +1,15 @@
+{
+  "adweek" : {
+    "signup" : {}
+  },
+  "studentshow" : {
+    "signup": {
+      "data" : {
+        "school" : "Binghamton",
+        "major" : "Whatever",
+        "year" : 2015,
+        "status" : "Undergraduate"
+      }
+    }
+  }
+}

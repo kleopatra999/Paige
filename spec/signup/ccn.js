@@ -1,22 +1,12 @@
-var _ref = require("selenium-webdriver/testing"),
-describe = _ref.describe,
-it = _ref.it,
-extend = require("nbd").util.extend,
+var extend = require("nbd").util.extend,
 config = extend( {}, require("../config.json") ),
 Paige = require("../../paige"),
-Page = {},
+bescribe = Paige.Helpers.bescribe,
 data = Paige.Helpers.data,
 originalAddress = config.test_address,
 ccnConfig = require("../../config/ccn.json");
 
-beforeEach(function() {
-  Page = new Paige.SignUp.Index(config);
-});
-
-
-afterEach(function(done) {
-  Page.done(done);
-});
+config.test_address = config.test_address.replace('//', '//adweek.');
 
 function setCcn( key ) {
   config.test_address = originalAddress.replace( '//', '//' + key + '.' );
@@ -28,7 +18,7 @@ Object.keys( ccnConfig ).forEach( function( key ) {
     // return;
   // }
 
-  describe( key + " Signup", function() {
+  bescribe( key + "CCN Signup", config, function(context, describe, it) {
     
     var username = data.username(),
         password = "password",
@@ -41,7 +31,8 @@ Object.keys( ccnConfig ).forEach( function( key ) {
       
         setCcn( key );
 
-        Page.resizeWindowTo({
+        context.Page.build()
+        .resizeWindowTo({
           width: 1280,
           height: 1024
         })
@@ -78,7 +69,8 @@ Object.keys( ccnConfig ).forEach( function( key ) {
       
         setCcn( key );
 
-        Page.resizeWindowTo({
+        context.Page.build()
+        .resizeWindowTo({
           width: 1280,
           height: 1024
         })
@@ -91,11 +83,9 @@ Object.keys( ccnConfig ).forEach( function( key ) {
         })
         .submitForm()
         .verifyWarning();
-
       });
 
     });
-
   });
   
 });
