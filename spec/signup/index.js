@@ -45,6 +45,7 @@ describe("Signup", function() {
           year: "1989"
         }
       })
+      .submitForm()
       .switchTo(Paige.SignUp.Find)
       .followFirstCreative()
       .finishFollowing()
@@ -86,6 +87,7 @@ describe("Signup", function() {
             year: "1989"
           }
         })
+        .submitForm()
         .switchOffFrame()
       .switchTo( Paige.Project.Index )
       .followed();
@@ -122,6 +124,7 @@ describe("Signup", function() {
             year: "1989"
           }
         })
+        .submitForm()
         .switchOffFrame()
       .switchTo( Paige.Project.Index )
       .openedAddCollection();
@@ -158,6 +161,7 @@ describe("Signup", function() {
             year: "1989"
           }
         })
+        .submitForm()
         .switchOffFrame()
       .switchTo( Paige.Project.Index )
       .openedMessage();
@@ -193,6 +197,7 @@ describe("Signup", function() {
             year: "1989"
           }
         })
+        .submitForm()
         .switchOffFrame()
       .switchTo( Paige.Project.Index );
       //TODO: Check that comments are in viewport
