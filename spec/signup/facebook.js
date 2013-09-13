@@ -38,7 +38,6 @@ describe("Facebook Signup", function() {
           })
           .open(facebookUser.login_url)
           .facebookSignin(facebookUser.email, facebookUser.password)
-          .facebookAllowAllPermissions()
           .open()
           .clickSocialButton("facebookButton")
           .switchTo(Paige.SignUp.Info)
