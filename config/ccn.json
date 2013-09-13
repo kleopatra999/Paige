@@ -2,6 +2,7 @@
   "adweek" : {
     "signup" : {}
   },
+
   "studentshow" : {
     "signup": {
       "data" : {
@@ -9,6 +10,17 @@
         "major" : "Whatever",
         "year" : 2015,
         "status" : "Undergraduate"
+      }
+    }
+  },
+
+  "nda" : {
+    "signup": {
+      "data" : {
+        "code": "SCH294NDA",
+        "award" : "Design Mind",
+        "year" : 2005,
+        "status" : "Winner"
       }
     }
   }

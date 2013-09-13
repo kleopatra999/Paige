@@ -14,21 +14,30 @@ function setCcn( key ) {
 
 Object.keys( ccnConfig ).forEach( function( key ) {
 
-  // if ( key != 'studentshow' ) {
-    // return;
-  // }
+  if ( key != 'nda' ) {
+    return;
+  }
 
-  bescribe( key + "CCN Signup", config, function(context, describe, it) {
-    
-    var username = data.username(),
+  bescribe( key + " CCN Signup", config, function(context, describe, it) {
+
+    var authenticate = {},
+        username = data.username(),
         password = "password",
         ccnData = ( ccnConfig[ key ].signup && ccnConfig[ key ].signup.data )
                   ? ccnConfig[ key ].signup.data
                   : {};
 
+    try {
+      require.resolve( "../../lib/ccn/signup/authenticate/" + key );
+      authenticate = require( "../../lib/ccn/signup/authenticate/" + key );
+    }
+    catch(e) {
+      authenticate = {};
+    }
+
     describe("basic", function() {
       it("is successful when not a behance member", function(done) {
-      
+
         setCcn( key );
 
         context.Page.build()
@@ -36,7 +45,10 @@ Object.keys( ccnConfig ).forEach( function( key ) {
           width: 1280,
           height: 1024
         })
-        .redirectTo( Paige.SignUp.Challenge )
+        [ authenticate ? 'redirectTo' : 'switchTo' ](Paige.Ccn.SignUp.Authenticate.with(authenticate))
+        .submitAuthentication(ccnData)
+        .submitFormCheck()
+        [ authenticate ? 'switchTo' : 'redirectTo' ]( Paige.SignUp.Challenge )
         .selectNotMember()
         .switchTo( Paige.SignUp.Index )
         .enterForm(data.email(), password)
@@ -64,9 +76,11 @@ Object.keys( ccnConfig ).forEach( function( key ) {
         .goToUsername( username )
         .verifyWarning();
       });
-      
+
+      return;
+
       it("is successful when a behance member", function(done) {
-      
+
         setCcn( key );
 
         context.Page.build()
@@ -74,7 +88,10 @@ Object.keys( ccnConfig ).forEach( function( key ) {
           width: 1280,
           height: 1024
         })
-        .redirectTo( Paige.SignUp.Challenge )
+        [ authenticate ? 'redirectTo' : 'switchTo' ](Paige.Ccn.SignUp.Authenticate.with(authenticate))
+        .submitAuthentication(ccnData)
+        .submitFormCheck()
+        [ authenticate ? 'switchTo' : 'redirectTo' ]( Paige.SignUp.Challenge )
         .selectMember()
         .switchTo( Paige.Login.Index )
         .enterInformation({
@@ -87,6 +104,6 @@ Object.keys( ccnConfig ).forEach( function( key ) {
 
     });
   });
-  
+
 });
 
