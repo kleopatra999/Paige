@@ -14,9 +14,9 @@ function setCcn( key ) {
 
 Object.keys( ccnConfig ).forEach( function( key ) {
 
-  if ( key != 'nda' ) {
-    return;
-  }
+  // if ( key != 'nda' ) {
+    // return;
+  // }
 
   bescribe( key + " CCN Signup", config, function(context, describe, it) {
 
@@ -76,8 +76,6 @@ Object.keys( ccnConfig ).forEach( function( key ) {
         .goToUsername( username )
         .verifyWarning();
       });
-
-      return;
 
       it("is successful when a behance member", function(done) {
 
