@@ -11,7 +11,7 @@ function setCcn( key ) {
 }
 
 Object.keys( ccnConfig ).forEach( function( key ) {
-  // if ( key != 'pantone' ) {
+  // if ( key != 'adweek' ) {
     // return;
   // }
 
@@ -20,9 +20,15 @@ Object.keys( ccnConfig ).forEach( function( key ) {
     var authenticate = {},
         username = data.username(),
         password = "password",
+        email = data.email(),
         ccnData = ( ccnConfig[ key ].signup && ccnConfig[ key ].signup.data ) ?
                   ccnConfig[ key ].signup.data :
                   {};
+                  
+        ccnData.email = email,
+        ccnData.username = username,
+        ccnData.password = password,
+        ccnsignup = require( "../../lib/ccn/signup/" + key );
 
     try {
       require.resolve( "../../lib/ccn/signup/authenticate/" + key );
@@ -47,10 +53,10 @@ Object.keys( ccnConfig ).forEach( function( key ) {
         .submitFormCheck()
         [ authenticate ? 'switchTo' : 'redirectTo' ]( Paige.SignUp.Challenge )
         .selectNotMember()
-        .switchTo( Paige.SignUp.Index )
-        .enterForm(data.email(), password)
+        .switchTo( Paige.SignUp.Index.with(Paige.Ccn.SignUp, ccnsignup) )
+        .enterForm(email, password)
         .submitForm()
-        .switchTo(Paige.SignUp.Info.with(Paige.Ccn.SignUp, require( "../../lib/ccn/signup/" + key)))
+        .switchTo(Paige.SignUp.Info.with(Paige.Ccn.SignUp, ccnsignup))
         .enterInformation({
           firstName: data.firstName(),
           lastName: data.lastName(),
@@ -74,7 +80,7 @@ Object.keys( ccnConfig ).forEach( function( key ) {
         .verifyWarning();
       });
 
-      it("is successful when a behance member", function(done) {
+      it("is successful when part of CCN", function(done) {
 
         setCcn( key );
 
@@ -86,16 +92,20 @@ Object.keys( ccnConfig ).forEach( function( key ) {
         [ authenticate ? 'redirectTo' : 'switchTo' ](Paige.Ccn.Authenticate.with(authenticate))
         .submitAuthentication(ccnData)
         .submitFormCheck()
-        [ authenticate ? 'switchTo' : 'redirectTo' ]( Paige.SignUp.Challenge )
+        [ authenticate ? 'switchTo' : 'redirectTo' ]( Paige.SignUp.Challenge.with(Paige.Ccn.SignUp, ccnsignup) )
         .selectMember()
-        .switchTo( Paige.Login.Index )
+        .switchTo( Paige.Login.Index.with(Paige.Ccn.SignUp, ccnsignup))
+        //TODO: Clean this up, should only take one argument
         .enterInformation({
           password: password,
-          username: username
+          username: email,
+          email: email
         })
         .submitForm()
         .verifyWarning();
       });
+      
+      // TODO: Leave CCN flow to actually test success when member, but not part of CCN
 
     });
   });

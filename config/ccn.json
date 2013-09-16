@@ -39,5 +39,15 @@
         "favorite_color" : "#add703"
       }
     }
+  },
+  
+  "ringling" : {
+    "signup": {
+      "data" : {
+        "status" : "Student",
+        "major" : "Advertising Design",
+        "year": 2005
+      }
+    }
   }
 }
