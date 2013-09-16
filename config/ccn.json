@@ -23,5 +23,13 @@
         "status" : "Winner"
       }
     }
+  },
+  
+  "wacom" : {
+    "signup": {
+      "data" : {
+        "favorite_tool" : "Cintiq"
+      }
+    }
   }
 }
