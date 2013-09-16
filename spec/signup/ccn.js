@@ -1,19 +1,16 @@
 var extend = require("nbd").util.extend,
-config = extend( {}, require("../config.json") ),
-Paige = require("../../paige"),
-bescribe = Paige.Helpers.bescribe,
-data = Paige.Helpers.data,
-originalAddress = config.test_address,
-ccnConfig = require("../../config/ccn.json");
-
-config.test_address = config.test_address.replace('//', '//adweek.');
+    config = extend( {}, require("../config.json") ),
+    Paige = require("../../paige"),
+    bescribe = Paige.Helpers.bescribe,
+    data = Paige.Helpers.data,
+    originalAddress = config.test_address,
+    ccnConfig = require("../../config/ccn.json");
 
 function setCcn( key ) {
   config.test_address = originalAddress.replace( '//', '//' + key + '.' );
 }
 
 Object.keys( ccnConfig ).forEach( function( key ) {
-
   // if ( key != 'nda' ) {
     // return;
   // }
@@ -23,9 +20,9 @@ Object.keys( ccnConfig ).forEach( function( key ) {
     var authenticate = {},
         username = data.username(),
         password = "password",
-        ccnData = ( ccnConfig[ key ].signup && ccnConfig[ key ].signup.data )
-                  ? ccnConfig[ key ].signup.data
-                  : {};
+        ccnData = ( ccnConfig[ key ].signup && ccnConfig[ key ].signup.data ) ?
+                  ccnConfig[ key ].signup.data :
+                  {};
 
     try {
       require.resolve( "../../lib/ccn/signup/authenticate/" + key );
@@ -45,7 +42,7 @@ Object.keys( ccnConfig ).forEach( function( key ) {
           width: 1280,
           height: 1024
         })
-        [ authenticate ? 'redirectTo' : 'switchTo' ](Paige.Ccn.SignUp.Authenticate.with(authenticate))
+        [ authenticate ? 'redirectTo' : 'switchTo' ](Paige.Ccn.Authenticate.with(authenticate))
         .submitAuthentication(ccnData)
         .submitFormCheck()
         [ authenticate ? 'switchTo' : 'redirectTo' ]( Paige.SignUp.Challenge )
@@ -53,7 +50,7 @@ Object.keys( ccnConfig ).forEach( function( key ) {
         .switchTo( Paige.SignUp.Index )
         .enterForm(data.email(), password)
         .submitForm()
-        .switchTo(Paige.SignUp.Info.with( require( "../../lib/ccn/signup/" + key ) ) )
+        .switchTo(Paige.SignUp.Info.with(Paige.Ccn.SignUp, require( "../../lib/ccn/signup/" + key)))
         .enterInformation({
           firstName: data.firstName(),
           lastName: data.lastName(),
@@ -86,7 +83,7 @@ Object.keys( ccnConfig ).forEach( function( key ) {
           width: 1280,
           height: 1024
         })
-        [ authenticate ? 'redirectTo' : 'switchTo' ](Paige.Ccn.SignUp.Authenticate.with(authenticate))
+        [ authenticate ? 'redirectTo' : 'switchTo' ](Paige.Ccn.Authenticate.with(authenticate))
         .submitAuthentication(ccnData)
         .submitFormCheck()
         [ authenticate ? 'switchTo' : 'redirectTo' ]( Paige.SignUp.Challenge )
