@@ -31,5 +31,13 @@
         "favorite_tool" : "Cintiq"
       }
     }
+  },
+  
+  "pantone" : {
+    "signup": {
+      "data" : {
+        "favorite_color" : "#add703"
+      }
+    }
   }
 }

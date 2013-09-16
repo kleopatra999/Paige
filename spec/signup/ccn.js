@@ -11,7 +11,7 @@ function setCcn( key ) {
 }
 
 Object.keys( ccnConfig ).forEach( function( key ) {
-  // if ( key != 'wacom' ) {
+  // if ( key != 'pantone' ) {
     // return;
   // }
 
