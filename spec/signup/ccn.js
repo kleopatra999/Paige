@@ -11,9 +11,9 @@ function setCcn( key ) {
 }
 
 Object.keys( ccnConfig ).forEach( function( key ) {
-  // if ( key != 'adweek' ) {
-    // return;
-  // }
+  if ( key != 'adweek' ) {
+    return;
+  }
 
   bescribe( key + " CCN Signup", config, function(context, describe, it) {
 
