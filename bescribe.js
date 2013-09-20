@@ -1,5 +1,5 @@
 var bescribe, webdriver = require('selenium-webdriver/testing'),
-    Root = require('../root');
+    Root = require('./lib/root');
 
 function wrapDescribe(describe) {
   return function (context, config, fn) {
