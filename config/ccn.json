@@ -1,0 +1,53 @@
+{
+  "adweek" : {
+    "signup" : {}
+  },
+
+  "studentshow" : {
+    "signup": {
+      "data" : {
+        "school" : "Binghamton",
+        "major" : "Whatever",
+        "year" : 2015,
+        "status" : "Undergraduate"
+      }
+    }
+  },
+
+  "nda" : {
+    "signup": {
+      "data" : {
+        "code": "SCH294NDA",
+        "award" : "Design Mind",
+        "year" : 2005,
+        "status" : "Winner"
+      }
+    }
+  },
+  
+  "wacom" : {
+    "signup": {
+      "data" : {
+        "favorite_tool" : "Cintiq"
+      }
+    }
+  },
+  
+  "pantone" : {
+    "signup": {
+      "data" : {
+        "favorite_color" : "#add703"
+      }
+    }
+  },
+  
+  "ringling" : {
+    "signup": {
+      "data" : {
+        "status" : "Student",
+        "major" : "Advertising Design",
+        "year": 2005
+      }
+    }
+  }
+}

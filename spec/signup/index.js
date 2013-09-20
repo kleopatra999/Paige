@@ -32,6 +32,7 @@ bescribe("Signup", config, function(context, describe, it) {
           year: "1989"
         }
       })
+      .submitForm()
       .switchTo(Paige.SignUp.Find)
       .followFirstCreative()
       .finishFollowing()
@@ -73,6 +74,7 @@ bescribe("Signup", config, function(context, describe, it) {
             year: "1989"
           }
         })
+        .submitForm()
         .switchOffFrame()
       .switchTo(Paige.Project.Index)
       .followed();
@@ -107,6 +109,7 @@ bescribe("Signup", config, function(context, describe, it) {
             year: "1989"
           }
         })
+        .submitForm()
         .switchOffFrame()
       .switchTo( Paige.Project.Index )
       .openedAddCollection();
@@ -141,6 +144,7 @@ bescribe("Signup", config, function(context, describe, it) {
             year: "1989"
           }
         })
+        .submitForm()
         .switchOffFrame()
       .switchTo(Paige.Project.Index)
       .openedMessage();
@@ -175,6 +179,7 @@ bescribe("Signup", config, function(context, describe, it) {
             year: "1989"
           }
         })
+        .submitForm()
         .switchOffFrame()
       .switchTo( Paige.Project.Index );
       //TODO: Check that comments are in viewport
