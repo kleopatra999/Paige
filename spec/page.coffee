@@ -5,7 +5,7 @@ bescribe = require "../bescribe"
 
 bescribe "Base Page Object", config, (context, describe, it) ->
   describe "#findAll", ->
-    it.only "resolves with all elements matching a query", ->
+    it "resolves with all elements matching a query", ->
       context.Page.build()
       .findAll("#footer a")
       .then((elements) ->
