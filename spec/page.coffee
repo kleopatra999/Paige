@@ -1,7 +1,14 @@
 Page = require "../lib/page"
-config = require "./config.json"
 bescribe = require "../bescribe"
 {expect} = require "chai"
+
+config =
+  address: "http://www.google.com"
+  webdriver:
+    address: "http://localhost:4444/wd/hub"
+    config:
+      platform: "MAC"
+      browserName: "firefox"
 
 bescribe "Base Page Object", config, (context, describe, it) ->
   describe "#findAll", ->
@@ -19,3 +26,20 @@ bescribe "Base Page Object", config, (context, describe, it) ->
       .then((returnVal) ->
         expect(returnVal).to.equal(5)
       )
+
+  describe "#whenDisplayed", ->
+    it "waits for an element to be displayed"
+    it "gives a sane error message if the element never appears", ->
+      context.Page.build()
+      .whenDisplayed('#i-dont-exist')
+
+  describe "#onPage", ->
+    it.only "verifies the integrity of the current page", ->
+      page = Page.extend(
+        pageRoot: "/"
+      )
+
+      context.Page.build()
+      .switchTo(page)
+      .onPage()
+
