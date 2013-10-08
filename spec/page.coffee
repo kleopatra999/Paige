@@ -33,13 +33,27 @@ bescribe "Base Page Object", config, (context, describe, it) ->
       context.Page.build()
       .whenDisplayed('#i-dont-exist')
 
-  describe "#onPage", ->
-    it.only "verifies the integrity of the current page", ->
-      page = Page.extend(
+  describe.only "#onPage", ->
+    describe "for the simple case", ->
+      page = Page.extend
         pageRoot: "/"
-      )
 
-      context.Page.build()
-      .switchTo(page)
-      .onPage()
+      it "verifies the integrity of the current page using the pathname", ->
+        context.Page.build()
+        .switchTo(page)
+        .onPage()
+
+    describe "for the complex case", ->
+      page = Page.extend
+        pageRoot: "/"
+        onPage: ->
+          @_super [
+            {selector: "input[name=q]", isDisplayed: true}
+          ]
+
+      it "verifies the integrity of the current page using test defined rules", ->
+        context.Page.build()
+        .switchTo(page)
+        .onPage()
+        
 
