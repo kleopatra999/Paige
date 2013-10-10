@@ -12,7 +12,7 @@ config =
 
 bescribe "Base Page Object", config, (context, describe, it) ->
   describe "Key", ->
-    it.only "returns escape sequence for key", ->
+    it "returns escape sequence for key", ->
       page = context.Page.build()
 
       expect(page.Key.ENTER).to.equal "\uE007"
