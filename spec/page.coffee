@@ -11,12 +11,27 @@ config =
       browserName: "firefox"
 
 bescribe "Base Page Object", config, (context, describe, it) ->
+  describe "#find", ->
+    it "correctly finds element given a selector string", ->
+      context.Page.build()
+      .find("[name=q]")
+      .then((element) ->
+        expect(element).to.not.equal(null)
+      )
+
+    it "correctly finds element given a selector tuple", ->
+      context.Page.build()
+      .find(["q", "name"])
+      .then((element) ->
+        expect(element).to.not.equal(null)
+      )
+
   describe "#findAll", ->
     it "resolves with all elements matching a query", ->
       context.Page.build()
       .findAll("#footer a")
       .then((elements) ->
-        expect(elements).to.have.length(5)
+        expect(elements).to.have.length(10)
       )
 
   describe "#runOnPage", ->
@@ -33,7 +48,7 @@ bescribe "Base Page Object", config, (context, describe, it) ->
       context.Page.build()
       .whenDisplayed('#i-dont-exist')
 
-  describe.only "#onPage", ->
+  describe "#onPage", ->
     describe "for the simple case", ->
       page = Page.extend
         pageRoot: "/"
