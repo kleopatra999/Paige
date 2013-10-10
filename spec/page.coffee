@@ -11,6 +11,21 @@ config =
       browserName: "firefox"
 
 bescribe "Base Page Object", config, (context, describe, it) ->
+  describe.only "#exists", ->
+    it "returns true if the element is on the page", ->
+      context.Page.build()
+      .exists("[name=q]")
+      .then((present) ->
+        expect(present).to.be.true
+      )
+
+    it "returns false if the element is not on the page", ->
+      context.Page.build()
+      .exists("#i-dont-exist")
+      .then((present) ->
+        expect(present).to.be.false
+      )
+
   describe "#find", ->
     it "correctly finds an element given a selector string", ->
       context.Page.build()
