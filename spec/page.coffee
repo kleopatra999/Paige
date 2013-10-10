@@ -11,7 +11,7 @@ config =
       browserName: "firefox"
 
 bescribe "Base Page Object", config, (context, describe, it) ->
-  describe.only "#exists", ->
+  describe "#exists", ->
     it "returns true if the element is on the page", ->
       context.Page.build()
       .exists("[name=q]")
@@ -48,6 +48,11 @@ bescribe "Base Page Object", config, (context, describe, it) ->
       .then((elements) ->
         expect(elements).to.have.length(10)
       )
+
+  describe "#verifyContent", ->
+    it "tests the content of a given element against a given string", ->
+      context.Page.build()
+      .verifyContent('[name=btnK] span', 'Google Search')
 
   describe "#runOnPage", ->
     it "runs a function in the context of the session", ->
