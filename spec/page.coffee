@@ -11,6 +11,12 @@ config =
       browserName: "firefox"
 
 bescribe "Base Page Object", config, (context, describe, it) ->
+  describe "Key", ->
+    it.only "returns escape sequence for key", ->
+      page = context.Page.build()
+
+      expect(page.Key.ENTER).to.equal "\uE007"
+  
   describe "#findAll", ->
     it "resolves with all elements matching a query", ->
       context.Page.build()
@@ -33,7 +39,7 @@ bescribe "Base Page Object", config, (context, describe, it) ->
       context.Page.build()
       .whenDisplayed('#i-dont-exist')
 
-  describe.only "#onPage", ->
+  describe "#onPage", ->
     describe "for the simple case", ->
       page = Page.extend
         pageRoot: "/"
