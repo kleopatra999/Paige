@@ -12,14 +12,14 @@ config =
 
 bescribe "Base Page Object", config, (context, describe, it) ->
   describe "#find", ->
-    it "correctly finds element given a selector string", ->
+    it "correctly finds an element given a selector string", ->
       context.Page.build()
       .find("[name=q]")
       .then((element) ->
         expect(element).to.not.equal(null)
       )
 
-    it "correctly finds element given a selector tuple", ->
+    it "correctly finds an element given a selector tuple", ->
       context.Page.build()
       .find(["q", "name"])
       .then((element) ->
@@ -43,10 +43,9 @@ bescribe "Base Page Object", config, (context, describe, it) ->
       )
 
   describe "#whenDisplayed", ->
-    it "waits for an element to be displayed"
-    it "gives a sane error message if the element never appears", ->
+    it "waits for an element to be displayed", ->
       context.Page.build()
-      .whenDisplayed('#i-dont-exist')
+      .whenDisplayed('[name=q]')
 
   describe "#onPage", ->
     describe "for the simple case", ->
