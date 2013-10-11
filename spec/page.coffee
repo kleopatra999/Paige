@@ -11,6 +11,12 @@ config =
       browserName: "firefox"
 
 bescribe "Base Page Object", config, (context, describe, it) ->
+  describe "Key", ->
+    it "returns escape sequence for key", ->
+      page = context.Page.build()
+
+      expect(page.Key.ENTER).to.equal "\uE007"
+
   describe "#exists", ->
     it "returns true if the element is on the page", ->
       context.Page.build()
