@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "description": "Paige is Page Objects. yup.",
   "scripts": {
-    "test": "mocha --recursive --timeout 30000 --slow 30000 --compilers coffee:coffee-script --reporter spec spec",
-    "coverage": "jscoverage lib lib-cov && LCOV=1 mocha --recursive --timeout 30000 --slow 30000 --compilers coffee:coffee-script --reporter html-cov spec > spec/coverage.html"
+    "test": "./node_modules/mocha/bin/mocha --recursive --timeout 30000 --slow 30000 --compilers coffee:coffee-script --reporter spec spec",
+    "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha -- --recursive --timeout 30000 --slow 30000 --compilers coffee:coffee-script --reporter spec spec"
   },
   "main": "index",
   "repository": {
@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "chai": "~1.7.2",
-    "coffee-script": "~1.6.3"
+    "coffee-script": "~1.6.3",
+    "mocha": "~1.13.0"
   }
 }
