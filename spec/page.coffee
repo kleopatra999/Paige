@@ -3,7 +3,7 @@ bescribe = require "../bescribe"
 {expect} = require "chai"
 
 config =
-  address: "http://www.google.com"
+  address: "http://www.example.com"
   webdriver:
     address: "http://localhost:4444/wd/hub"
     config:
@@ -14,7 +14,7 @@ bescribe "Base Page Object", config, (context, describe, it) ->
   describe "#exists", ->
     it "returns true if the element is on the page", ->
       context.Page.build()
-      .exists("[name=q]")
+      .exists("h1")
       .then((present) ->
         expect(present).to.be.true
       )
@@ -29,14 +29,14 @@ bescribe "Base Page Object", config, (context, describe, it) ->
   describe "#find", ->
     it "correctly finds an element given a selector string", ->
       context.Page.build()
-      .find("[name=q]")
+      .find("h1")
       .then((element) ->
         expect(element).to.not.equal(null)
       )
 
     it "correctly finds an element given a selector tuple", ->
       context.Page.build()
-      .find(["q", "name"])
+      .find(["More information...", "link text"])
       .then((element) ->
         expect(element).to.not.equal(null)
       )
@@ -44,15 +44,15 @@ bescribe "Base Page Object", config, (context, describe, it) ->
   describe "#findAll", ->
     it "resolves with all elements matching a query", ->
       context.Page.build()
-      .findAll("#footer a")
+      .findAll("p")
       .then((elements) ->
-        expect(elements).to.have.length(10)
+        expect(elements).to.have.length(2)
       )
 
   describe "#verifyContent", ->
     it "tests the content of a given element against a given string", ->
       context.Page.build()
-      .verifyContent('[name=btnK] span', 'Google Search')
+      .verifyContent('h1', 'Example Domain')
 
   describe "#runOnPage", ->
     it "runs a function in the context of the session", ->
@@ -65,14 +65,27 @@ bescribe "Base Page Object", config, (context, describe, it) ->
   describe "#whenDisplayed", ->
     it "waits for an element to be displayed", ->
       context.Page.build()
-      .whenDisplayed('[name=q]')
+      .whenDisplayed('h1')
+
+  describe "#whenNotDisplayed", ->
+    page = Page.extend
+      pageRoot: "/"
+      enterSearch: ->
+        @find('a').click()
+        @
+
+    it "waits for an element to not be displayed", ->
+      context.Page.build()
+      .switchTo(page)
+      .enterSearch()
+      .whenNotDisplayed('[href="http://www.iana.org/domains/example"]')
 
   describe "#onPage", ->
     describe "for the simple case", ->
       page = Page.extend
         pageRoot: "/"
 
-      it "verifies the integrity of the current page using the pathname", ->
+      it "verifies using the pathname", ->
         context.Page.build()
         .switchTo(page)
         .onPage()
@@ -82,12 +95,13 @@ bescribe "Base Page Object", config, (context, describe, it) ->
         pageRoot: "/"
         onPage: ->
           @_super [
-            {selector: "input[name=q]", isDisplayed: true}
+            "h1"
+            {selector: "p a", isDisplayed: true, getText: 'More information...'},
           ]
+          @
 
-      it "verifies the integrity of the current page using test defined rules", ->
+      it "verifies using test defined rules", ->
         context.Page.build()
         .switchTo(page)
         .onPage()
-        
 
