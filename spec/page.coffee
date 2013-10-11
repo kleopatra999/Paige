@@ -1,4 +1,4 @@
-Page = require "../lib/page"
+Page = if process.env.LCOV then require "../lib-cov/page" else require "../lib/page"
 bescribe = require "../bescribe"
 {expect} = require "chai"
 
