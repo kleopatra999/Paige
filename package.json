@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Paige is Page Objects. yup.",
   "scripts": {
-    "test": "mocha --recursive --timeout 20000 --compilers coffee:coffee-script --reporter spec spec"
+    "test": "mocha --recursive --timeout 30000 --slow 30000 --compilers coffee:coffee-script --reporter spec spec"
   },
   "main": "index",
   "repository": {
