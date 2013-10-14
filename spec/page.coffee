@@ -47,6 +47,11 @@ bescribe "Base Page Object", config, (context, describe, it) ->
         expect(element).to.not.equal(null)
       )
 
+    it "returns a selector that can be chained", ->
+      context.Page.build()
+      .find('p:last-child')
+      .find('a')
+
   describe "#findAll", ->
     it "resolves with all elements matching a query", ->
       context.Page.build()
