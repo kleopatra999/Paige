@@ -182,3 +182,8 @@ bescribe "Base Page Object", config, (context, describe, it) ->
         .switchTo(page)
         .onPage()
 
+  describe "#hover", ->
+    it "function executes without error when a css selector is provided", ->
+      context.Page.build()
+      .hover('a')
+
