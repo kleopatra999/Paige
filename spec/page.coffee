@@ -60,6 +60,72 @@ bescribe "Base Page Object", config, (context, describe, it) ->
         expect(elements).to.have.length(2)
       )
 
+  describe "#findInList", ->
+    describe "given a list of WebElements", ->
+      describe "and a sync filter", ->
+        it "returns an element that fulfills a content criteria", ->
+          elementsSeen = 0
+          threshold = 1
+          page = context.Page.build()
+
+          page
+          .findAll("p")
+          .then((list) ->
+            page.findInList(list, (element, cb) ->
+              if elementsSeen is threshold
+                cb element
+                return
+
+              elementsSeen++
+              cb()
+            )
+            .then((element) ->
+              element.getText().then((text) ->
+                expect(text).to.match(/More info/)
+              )
+            )
+          )
+
+      describe "and an async filter", ->
+        it "returns an element that fulfills a content criteria", ->
+          page = context.Page.build()
+
+          page
+          .findAll("p")
+          .then((list) ->
+            page.findInList(list, (element, cb) ->
+              element.getText().then((innerText) ->
+                if !innerText.indexOf "This domain is"
+                  cb element
+                  return
+
+                cb()
+              )
+            )
+            .then((element) ->
+              element.getText().then((text) ->
+                expect(text).to.match(/This domain is/)
+              )
+            )
+          )
+
+        it "returns an element that fulfills a structure criteria", ->
+          page = context.Page.build()
+
+          page
+          .findAll("p")
+          .then((list) ->
+            page.findInList(list, (element, cb) ->
+              element.exists('a').then((present) ->
+                elem = if present then element else null
+                cb elem
+              )
+            )
+            .then((element) ->
+              element.find('a')
+            )
+          )
+
   describe "#verifyContent", ->
     it "tests the content of a given element against a given string", ->
       context.Page.build()
