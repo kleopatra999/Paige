@@ -11,7 +11,7 @@ config =
       platform: "MAC"
       browserName: "firefox"
 
-bescribe.only "Form Component", config, (context, describe, it) ->
+bescribe "Form Component", config, (context, describe, it) ->
   describe "given inputs and data", ->
     it "fills in a form", ->
       page = Page.extend(
