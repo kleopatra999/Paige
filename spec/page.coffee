@@ -200,9 +200,7 @@ bescribe "Base Page Object", config, (context, describe, it) ->
 
       page.runOnPage("document.querySelector('a').setAttribute('disabled', 'disabled')")
       .then(->
-        page
-        .find("a")
-        .clickable()
+        page.find("a").clickable()
         .then((clickable) ->
           expect(clickable).to.be.false
         )
