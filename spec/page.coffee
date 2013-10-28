@@ -187,21 +187,23 @@ bescribe "Base Page Object", config, (context, describe, it) ->
       context.Page.build()
       .hover('a')
 
-  describe "#assertDisplayed", ->
-    it "asserts an element is displayed", ->
+  describe "#clickable", ->
+    it "returns true when element is clickable", ->
       context.Page.build()
-      .assertDisplayed "h1"
+      .find("a").clickable()
+      .then((clickable) ->
+        expect(clickable).to.be.true
+      )
 
-  describe.only "#assertNotDisplayed", ->
-    page = Page.extend
-      pageRoot: "/"
-      clickLink: ->
-        @find('a').click()
-        @
+    it "returns false when element is not clickable", ->
+      page = context.Page.build()
 
-    it "asserts an element is not displayed", ->
-      context.Page.build()
-      .switchTo(page)
-      .clickLink()
-      .assertNotDisplayed "#nav_dom_root_sub"
-
+      page.runOnPage("document.querySelector('a').setAttribute('disabled', 'disabled')")
+      .then(->
+        page
+        .find("a")
+        .clickable()
+        .then((clickable) ->
+          expect(clickable).to.be.false
+        )
+      )
