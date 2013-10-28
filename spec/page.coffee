@@ -187,3 +187,21 @@ bescribe "Base Page Object", config, (context, describe, it) ->
       context.Page.build()
       .hover('a')
 
+  describe "#assertDisplayed", ->
+    it "asserts an element is displayed", ->
+      context.Page.build()
+      .assertDisplayed "h1"
+
+  describe.only "#assertNotDisplayed", ->
+    page = Page.extend
+      pageRoot: "/"
+      clickLink: ->
+        @find('a').click()
+        @
+
+    it "asserts an element is not displayed", ->
+      context.Page.build()
+      .switchTo(page)
+      .clickLink()
+      .assertNotDisplayed "#nav_dom_root_sub"
+
