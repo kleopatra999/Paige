@@ -18,10 +18,10 @@ bescribe "Base Page Object", config, (context, describe, it) ->
 
       expect(page.Key.ENTER).to.equal "\uE007"
 
-  describe.only "#uploadFile", ->
+  describe "#uploadFile", ->
     it "transfers a file to the grid server", ->
       context.Page.build()
-      ._uploadFile('/Users/Sean/Documents/Test Images/small-test.jpg')
+      .uploadFile('/Users/Sean/Documents/Test Images/small-test.jpg')
       .then (fileLocation) ->
         fs.stat fileLocation, (err, stat) ->
           expect(err).to.equal(null)
