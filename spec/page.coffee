@@ -197,3 +197,21 @@ bescribe "Base Page Object", config, (context, describe, it) ->
       context.Page.build()
       .hover('a')
 
+  describe "#clickable", ->
+    it "returns true when element is clickable", ->
+      context.Page.build()
+      .find("a").clickable()
+      .then((clickable) ->
+        expect(clickable).to.be.true
+      )
+
+    it "returns false when element is not clickable", ->
+      page = context.Page.build()
+
+      page.runOnPage("document.querySelector('a').setAttribute('disabled', 'disabled')")
+      .then(->
+        page.find("a").clickable()
+        .then((clickable) ->
+          expect(clickable).to.be.false
+        )
+      )
