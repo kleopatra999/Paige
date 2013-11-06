@@ -1,7 +1,7 @@
 merge = require "../../lib/utils/merge"
 { expect } = require("chai")
 
-describe "merge", ->
+describe "lib/utils/merge", ->
   it "returns obj when called with one parameter", ->
     expect(merge({ a: "one", b: "two" })).to.deep.equal({ a: "one", b: "two" })
 
