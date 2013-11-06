@@ -3,6 +3,7 @@
   "boss": true,
   "curly": true,
   "devel": true,
+  "epxr": true,
   "immed": true,
   "latedef": true,
   "newcap": true,
