@@ -10,7 +10,7 @@ config =
       platform: "MAC"
       browserName: "firefox"
 
-describe.only "Base Component", ->
+describe "Base Component", ->
   it 'is extensible', ->
     Sub = Component.extend()
 
@@ -28,8 +28,8 @@ describe.only "Base Component", ->
           button: '#some-button'
         enterInformation: ->
         submitForm: ->
-      FormPage = Component.with Form
-      formPageInst = new FormPage()
+      CompositeForm = Component.with Form
+      formPageInst = new CompositeForm()
 
       expect(formPageInst).to.respondTo('enterInformation')
       expect(formPageInst.selectors).to.have.keys(['textInput', 'button'])
