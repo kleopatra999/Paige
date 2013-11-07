@@ -127,9 +127,13 @@ bescribe "Base Page Object", config, (context, describe, it) ->
           )
 
   describe "#verifyContent", ->
-    it "tests the content of a given element against a given string", ->
+    it "tests the content of a given element against a given string, using a selector", ->
       context.Page.build()
       .verifyContent('h1', 'Example Domain')
+
+    it "tests the content of a given element against a given string, using a webElement", ->
+      page = context.Page.build()
+      page.verifyContent(page.find('h1'), 'Example Domain')
 
   describe "#runOnPage", ->
     it "runs a function in the context of the session", ->
