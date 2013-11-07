@@ -128,12 +128,12 @@ bescribe "Base Page Object", config, (context, describe, it) ->
 
   describe "#verifyContent", ->
     describe "given a selector string", ->
-      it "returns true if the content matches the given string" , ->
+      it "tests if the content matches the given string" , ->
         context.Page.build()
         .verifyContent('h1', 'Example Domain')
 
     describe "given a webElement", ->
-      it "returns true if the content matches the given string", ->
+      it "tests if the content matches the given string", ->
         page = context.Page.build()
         page.verifyContent(page.find('h1'), 'Example Domain')
 
