@@ -149,8 +149,8 @@ bescribe "Base Page Object", config, (context, describe, it) ->
     describe "given a selector string", ->
       it "tests if the content matches the given string" , ->
         context.Page.build()
-        .verifyContent('h1', 'Example Domain')
-
+        .verifyContent('h1', 'EXAMPLE DOMAIN')
+      
     describe "given a webElement", ->
       it "tests if the content matches the given string", ->
         page = context.Page.build()
