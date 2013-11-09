@@ -213,6 +213,16 @@ bescribe "Base Page Object", config, (context, describe, it) ->
         context.Page.build()
         .hover('a')
 
+  describe "#unhover", ->
+    describe "when given a css selector", ->
+      it "executes without errors", ->
+        page = context.Page.build()
+
+        page.hover('a')
+        .then(->
+          page.unhover('a')
+        )
+
   describe "#clickable", ->
     it "returns true when element is clickable", ->
       context.Page.build()
