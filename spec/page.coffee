@@ -208,9 +208,10 @@ bescribe "Base Page Object", config, (context, describe, it) ->
         .onPage()
 
   describe "#hover", ->
-    it "function executes without error when a css selector is provided", ->
-      context.Page.build()
-      .hover('a')
+    describe "when given a css selector", ->
+      it "executes without errors", ->
+        context.Page.build()
+        .hover('a')
 
   describe "#clickable", ->
     it "returns true when element is clickable", ->
