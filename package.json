@@ -21,7 +21,8 @@
     "nbd": "~0.3",
     "chai": "~1.7.2",
     "adm-zip": "~0.4.3",
-    "request": "~2.27.0"
+    "request": "~2.27.0",
+    "phantom": "~0.5.4"
   },
   "devDependencies": {
     "chai": "~1.7.2",
