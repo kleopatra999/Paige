@@ -1,10 +1,10 @@
-testFiles = require '../../lib/utils/testFiles',
+{ createImage } = require "../../index"
 fs = require 'fs',
-{expect} = require 'chai'
+{ expect } = require 'chai'
 
 describe "lib/utils/testFiles", ->
-  it.only "creates a file", ->
-    testFiles {}, (buffer) ->
+  it "creates a file", ->
+    createImage {}, (buffer) ->
       fs.writeFilesSync path, buffer
       fs.stat path, (err, stat) ->
         expect(err).to.equal(null)
