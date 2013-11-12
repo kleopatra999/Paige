@@ -2,8 +2,8 @@
 fs = require 'fs',
 { expect } = require 'chai'
 
-describe "lib/utils/testFiles", ->
-  it "creates a file", ->
+describe "lib/utils/createImage", ->
+  it "creates an image", ->
     createImage {}, (buffer) ->
       fs.writeFilesSync path, buffer
       fs.stat path, (err, stat) ->
