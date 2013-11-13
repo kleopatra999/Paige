@@ -1,7 +1,7 @@
-Page = if process.env.LCOV then require "../lib-cov/page" else require "../lib/page"
+{ Page, createImage } = require "../index"
+bescribe = require "../bescribe"
 fs = require "fs"
 request = require "request"
-bescribe = require "../bescribe"
 {expect} = require "chai"
 
 config =
@@ -29,24 +29,29 @@ bescribe "Base Page Object", config, (context, describe, it) ->
 
         page.uploadFile(kittenPath)
         .then (fileLocation) ->
-          fs.stat fileLocation, (err, stat) ->
-            expect(err).to.equal(null)
-            expect(stat.isFile()).to.be.true
+          contents = fs.readFileSync fileLocation
 
-            fs.unlinkSync kittenPath
+          fs.stat fileLocation, (err, stat) ->
+            expect(err).to.equal null
+            expect(stat.isFile()).to.be.true
+            expect(body).to.equal contents.toString()
+
+          fs.unlinkSync kittenPath
       )
 
     it "transfers a buffer to the grid server", ->
-      kittenPath = '/var/tmp/kitten.jpg'
       page = context.Page.build()
 
-      request.get('http://placekitten.com/200/300', (err, response, body) ->
-        page.uploadFile(new Buffer(body))
+      createImage({})
+      .then (buffer) ->
+        page.uploadFile(buffer)
         .then (fileLocation) ->
+          contents = fs.readFileSync fileLocation
+
           fs.stat fileLocation, (err, stat) ->
-            expect(err).to.equal(null)
+            expect(err).to.equal null
             expect(stat.isFile()).to.be.true
-      )
+            expect(contents.toString()).to.equal buffer.toString()
 
   describe "#exists", ->
     it "returns true if the element is on the page", ->
