@@ -15,15 +15,17 @@ bescribe "Form Component", config, (context, describe, it) ->
   describe "given inputs and data", ->
     it "fills in a form", ->
       page = Page.extend(
-        selectors:
-          inputs:
-            search: "[name=q]"
-            continue: "[name=btnG]"
+        forms:
+          search:
+            context: "#gbqf"
+            submit: "[name=btnG]"
+            inputs:
+              search: "[name=q]"
       ).with(Form)
 
       context.Page.build()
       .switchTo(page)
-      .enterInformation(
+      .enterInformation("search",
         search: "Behance"
       )
-      .submitForm()
+      .submitForm("search")
