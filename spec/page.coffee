@@ -1,5 +1,7 @@
-Page = if process.env.LCOV then require "../lib-cov/page" else require "../lib/page"
+{ Page, createImage } = require "../index"
 bescribe = require "../bescribe"
+fs = require "fs"
+request = require "request"
 {expect} = require "chai"
 
 config =
@@ -16,6 +18,40 @@ bescribe "Base Page Object", config, (context, describe, it) ->
       page = context.Page.build()
 
       expect(page.Key.ENTER).to.equal "\uE007"
+
+  describe "#uploadFile", ->
+    it "transfers a local file to the grid server", ->
+      kittenPath = '/var/tmp/kitten.jpg'
+      page = context.Page.build()
+
+      request.get('http://placekitten.com/200/300', (err, response, body) ->
+        fs.writeFileSync kittenPath, body
+
+        page.uploadFile(kittenPath)
+        .then (fileLocation) ->
+          contents = fs.readFileSync fileLocation
+
+          fs.stat fileLocation, (err, stat) ->
+            expect(err).to.equal null
+            expect(stat.isFile()).to.be.true
+            expect(body).to.equal contents.toString()
+
+          fs.unlinkSync kittenPath
+      )
+
+    it "transfers a buffer to the grid server", ->
+      page = context.Page.build()
+
+      createImage({})
+      .then (buffer) ->
+        page.uploadFile(buffer)
+        .then (fileLocation) ->
+          contents = fs.readFileSync fileLocation
+
+          fs.stat fileLocation, (err, stat) ->
+            expect(err).to.equal null
+            expect(stat.isFile()).to.be.true
+            expect(contents.toString()).to.equal buffer.toString()
 
   describe "#exists", ->
     it "returns true if the element is on the page", ->
@@ -127,9 +163,15 @@ bescribe "Base Page Object", config, (context, describe, it) ->
           )
 
   describe "#verifyContent", ->
-    it "tests the content of a given element against a given string", ->
-      context.Page.build()
-      .verifyContent('h1', 'Example Domain')
+    describe "given a selector string", ->
+      it "tests if the content matches the given string" , ->
+        context.Page.build()
+        .verifyContent('h1', 'EXAMPLE DOMAIN')
+      
+    describe "given a webElement", ->
+      it "tests if the content matches the given string", ->
+        page = context.Page.build()
+        page.verifyContent(page.find('h1'), 'Example Domain')
 
   describe "#runOnPage", ->
     it "runs a function in the context of the session", ->
@@ -182,3 +224,37 @@ bescribe "Base Page Object", config, (context, describe, it) ->
         .switchTo(page)
         .onPage()
 
+  describe "#hover", ->
+    describe "when given a css selector", ->
+      it "executes without errors", ->
+        context.Page.build()
+        .hover('a')
+
+  describe "#unhover", ->
+    describe "when given a css selector", ->
+      it "executes without errors", ->
+        page = context.Page.build()
+
+        page.hover('a')
+        .then(->
+          page.unhover('a')
+        )
+
+  describe "#clickable", ->
+    it "returns true when element is clickable", ->
+      context.Page.build()
+      .find("a").clickable()
+      .then((clickable) ->
+        expect(clickable).to.be.true
+      )
+
+    it "returns false when element is not clickable", ->
+      page = context.Page.build()
+
+      page.runOnPage("document.querySelector('a').setAttribute('disabled', 'disabled')")
+      .then(->
+        page.find("a").clickable()
+        .then((clickable) ->
+          expect(clickable).to.be.false
+        )
+      )
