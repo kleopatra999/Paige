@@ -223,38 +223,3 @@ bescribe "Base Page Object", config, (context, describe, it) ->
         context.Page.build()
         .switchTo(page)
         .onPage()
-
-  describe "#hover", ->
-    describe "when given a css selector", ->
-      it "executes without errors", ->
-        context.Page.build()
-        .hover('a')
-
-  describe "#unhover", ->
-    describe "when given a css selector", ->
-      it "executes without errors", ->
-        page = context.Page.build()
-
-        page.hover('a')
-        .then(->
-          page.unhover('a')
-        )
-
-  describe "#clickable", ->
-    it "returns true when element is clickable", ->
-      context.Page.build()
-      .find("a").clickable()
-      .then((clickable) ->
-        expect(clickable).to.be.true
-      )
-
-    it "returns false when element is not clickable", ->
-      page = context.Page.build()
-
-      page.runOnPage("document.querySelector('a').setAttribute('disabled', 'disabled')")
-      .then(->
-        page.find("a").clickable()
-        .then((clickable) ->
-          expect(clickable).to.be.false
-        )
-      )
