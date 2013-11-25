@@ -54,6 +54,15 @@ bescribe "Base Page Object", config, (context, describe, it) ->
             expect(contents.toString()).to.equal buffer.toString()
 
   describe "#exists", ->
+    it "throws an error if given undefined", ->
+      expect(() ->
+        context.Page.build()
+        .exists(undefined)
+        .then((present) ->
+          expect(present).to.be.true
+        )
+      ).to.throw(Error)
+
     it "returns true if the element is on the page", ->
       context.Page.build()
       .exists("h1")
@@ -69,6 +78,15 @@ bescribe "Base Page Object", config, (context, describe, it) ->
       )
 
   describe "#find", ->
+    it "throws an error if given undefined", ->
+      expect(() ->
+        context.Page.build()
+        .find(undefined)
+        .then((present) ->
+          expect(present).to.be.true
+        )
+      ).to.throw(Error)
+
     it "correctly finds an element given a selector string", ->
       context.Page.build()
       .find("h1")
@@ -89,6 +107,15 @@ bescribe "Base Page Object", config, (context, describe, it) ->
       .find('a')
 
   describe "#findAll", ->
+    it "throws an error if given undefined", ->
+      expect(() ->
+        context.Page.build()
+        .findAll(undefined)
+        .then((present) ->
+          expect(present).to.be.true
+        )
+      ).to.throw(Error)
+
     it "resolves with all elements matching a query", ->
       context.Page.build()
       .findAll("p")
