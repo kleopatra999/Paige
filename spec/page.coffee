@@ -3,6 +3,7 @@ bescribe = require "../bescribe"
 fs = require "fs"
 request = require "request"
 {expect} = require "chai"
+util = require "util"
 
 config =
   address: "http://www.example.com"
@@ -13,6 +14,22 @@ config =
       browserName: "firefox"
 
 bescribe "Base Page Object", config, (context, describe, it) ->
+  describe "inheritence", ->
+    describe "through extension", ->
+      it "maintains parent's selectors", ->
+        pageA = Page.extend
+          selectors:
+            a: 'foo',
+            b: 'bar'
+        pageB = pageA.extend
+          selectors:
+            c: 'baz'
+        page = new pageB
+
+        expect(page.selectors.a).to.equal "foo"
+        expect(page.selectors.b).to.equal "bar"
+        expect(page.selectors.c).to.equal "baz"
+
   describe "Key", ->
     it "returns escape sequence for key", ->
       page = context.Page.build()
