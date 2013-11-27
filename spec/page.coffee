@@ -30,6 +30,75 @@ bescribe "Base Page Object", config, (context, describe, it) ->
         expect(page.selectors.b).to.equal "bar"
         expect(page.selectors.c).to.equal "baz"
 
+    describe "through composition", ->
+      it "merges selectors of one component", ->
+        compA =
+          selectors:
+            a: 'foo',
+            b: 'bar'
+        compPage = Page.extend().with compA
+        page = new compPage
+
+        expect(page.selectors.a).to.equal "foo"
+        expect(page.selectors.b).to.equal "bar"
+
+      it "merges selectors of n components", ->
+        compA =
+          selectors:
+            a: 'foo1',
+            b: 'bar1'
+        compB =
+          selectors:
+            c: 'baz1',
+        compPage = Page.extend().with compA, compB
+        page = new compPage
+
+        expect(page.selectors.a).to.equal "foo1"
+        expect(page.selectors.b).to.equal "bar1"
+        expect(page.selectors.c).to.equal "baz1"
+
+    describe "through extension and composition", ->
+      it "merges selectors of one component", ->
+        pageA = Page.extend
+          selectors:
+            a: 'foo',
+            b: 'bar'
+        pageB = pageA.extend
+          selectors:
+            b: 'bar1'
+        compA =
+          selectors:
+            c: 'baz2',
+        compPage = pageB.with compA
+        page = new compPage
+
+        expect(page.selectors.a).to.equal "foo"
+        expect(page.selectors.b).to.equal "bar1"
+        expect(page.selectors.c).to.equal "baz2"
+
+      it "merges selectors of n components", ->
+        pageA = Page.extend
+          selectors:
+            a: 'foo',
+            b: 'bar'
+        pageB = pageA.extend
+          selectors:
+            c: 'baz1'
+        compA =
+          selectors:
+            c: 'baz2',
+        compB =
+          selectors:
+            a: 'foo3'
+            d: 'fuu3',
+        compPage = pageB.with compA, compB
+        page = new compPage
+
+        expect(page.selectors.a).to.equal "foo3"
+        expect(page.selectors.b).to.equal "bar"
+        expect(page.selectors.c).to.equal "baz1"
+        expect(page.selectors.d).to.equal "fuu3"
+
   describe "Key", ->
     it "returns escape sequence for key", ->
       page = context.Page.build()

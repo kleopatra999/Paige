@@ -10,6 +10,27 @@ describe "lib/utils/compose", ->
       enterInformation: ->
       submitForm: ->
 
+    it "merges with selector-less component", ->
+      signup =
+        checkErrors: ->
+      simpleForm = compose form, signup
+
+      expect(simpleForm.enterInformation).to.equal form.enterInformation
+      expect(simpleForm.submitForm).to.equal form.submitForm
+      expect(simpleForm.checkErrors).to.equal signup.checkErrors
+      expect(simpleForm.selectors).to.have.keys(["textInput", "button"])
+
+    it "merges with an empty selector component", ->
+      signup =
+        selectors: {}
+        checkErrors: ->
+      simpleForm = compose form, signup
+
+      expect(simpleForm.enterInformation).to.equal form.enterInformation
+      expect(simpleForm.submitForm).to.equal form.submitForm
+      expect(simpleForm.checkErrors).to.equal signup.checkErrors
+      expect(simpleForm.selectors).to.have.keys(["textInput", "button"])
+
     it "merges with one component", ->
       simpleForm = compose form
 
