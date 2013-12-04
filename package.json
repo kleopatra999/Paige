@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "description": "Paige is Page Objects. yup.",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha --recursive --timeout 30000 --slow 30000 --compilers coffee:coffee-script --reporter spec spec",
-    "coverage": "istanbul cover ./node_modules/mocha/bin/_mocha -- --recursive --timeout 30000 --slow 30000 --compilers coffee:coffee-script --reporter spec spec"
+    "test": "./bin/test",
+    "coverage": "./bin/coverage"
   },
   "main": "index",
   "repository": {

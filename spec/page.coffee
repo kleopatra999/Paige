@@ -6,7 +6,7 @@ request = require "request"
 util = require "util"
 
 config =
-  address: "http://www.example.com"
+  address: "http://localhost:8282"
   webdriver:
     address: "http://localhost:4444/wd/hub"
     config:
