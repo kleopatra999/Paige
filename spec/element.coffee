@@ -2,7 +2,7 @@ bescribe = require "../bescribe"
 {expect} = require "chai"
 
 config =
-  address: "http://www.example.com"
+  address: "http://localhost:8282"
   webdriver:
     address: "http://localhost:4444/wd/hub"
     config:
@@ -26,6 +26,15 @@ bescribe "WebElement", config, (context, describe, it) ->
       .getCssProperties()
       .then((styles) ->
         expect(styles.width).to.equal("auto")
+      )
+
+  describe "#makeVisible", ->
+    it "makes an element visible", ->
+      context.Page.build()
+      .find('#hidden-element')
+      .makeVisible()
+      .then((element) ->
+        element.click()
       )
 
   describe "#hover", ->
