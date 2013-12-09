@@ -1,6 +1,6 @@
 {
   "name": "paige",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Paige is Page Objects. yup.",
   "scripts": {
     "test": "./bin/test",
