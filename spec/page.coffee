@@ -328,6 +328,7 @@ bescribe "Base Page Object", config, (context, describe, it) ->
         onPage: ->
           @_super [
             "h1"
+            ["main-header", "id"]
             {selector: "p a", isDisplayed: true, getText: 'More information...'},
           ]
           @
