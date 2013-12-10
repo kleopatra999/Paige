@@ -14,7 +14,7 @@ config =
       username: sauce.username
       accessKey: sauce.accessKey
 
-describe.only "Sauce Labs", ->
+describe "Sauce Labs", ->
   it "can connect", ->
     session = new webdriver.Builder()
       .usingServer(config.webdriver.address)
