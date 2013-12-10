@@ -1,7 +1,6 @@
-webdriver = require "selenium-webdriver"
+bescribe = require "../bescribe"
 fs = require "fs"
 sauce = JSON.parse(fs.readFileSync("./sauce-config.json"))
-{describe, it} = require "selenium-webdriver/testing"
 
 config =
   address: "http://localhost:8282"
@@ -14,13 +13,8 @@ config =
       username: sauce.username
       accessKey: sauce.accessKey
 
-describe "Sauce Labs", ->
+bescribe "Sauce Labs", config, (context, describe, it) ->
   it "can connect", ->
-    session = new webdriver.Builder()
-      .usingServer(config.webdriver.address)
-      .withCapabilities(config.webdriver.config)
-      .build()
-
-    session.get("http://www.google.com").then(()->
-      session.quit()
-    )
+    context.Page.build()
+    .open("http://www.google.com")
+    .whenDisplayed('#lga')
