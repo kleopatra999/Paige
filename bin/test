@@ -3,6 +3,7 @@
 node ./spec/server/index.js &
 PID=$!
 
-./node_modules/mocha/bin/mocha --recursive --timeout 30000 --slow 30000 --compilers coffee:coffee-script --reporter spec spec
+paige local localhost 'spec/**/*.coffee' --timeout 30000 --slow 30000 --reporter spec
+#./node_modules/mocha/bin/mocha --recursive --timeout 30000 --slow 30000 --compilers coffee:coffee-script --reporter spec spec
 
 kill $PID
