@@ -280,7 +280,7 @@ bescribe "Base Page Object", config, (context, describe, it) ->
       it "tests if the content matches the given string" , ->
         context.Page.build()
         .verifyContent('h1', 'EXAMPLE DOMAIN')
-      
+
     describe "given a webElement", ->
       it "tests if the content matches the given string", ->
         page = context.Page.build()
@@ -337,3 +337,23 @@ bescribe "Base Page Object", config, (context, describe, it) ->
         context.Page.build()
         .switchTo(page)
         .onPage()
+
+    describe "#awaits", ->
+      page = Page.extend
+        passed: false
+        pageRoot: "/"
+        waitForAsyncThing: ->
+          @awaits((promise) =>
+            setTimeout(=>
+              @passed = true
+              promise.fulfill()
+            , 1000)
+          )
+          .then =>
+            expect(@passed).to.be.true
+
+        it "waits for a promise to be resolved", ->
+          context.Page.build()
+          .switchTo(page)
+          .waitForAsyncThing()
+
