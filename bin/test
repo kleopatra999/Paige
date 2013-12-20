@@ -3,6 +3,6 @@
 node ./spec/server/index.js &
 PID=$!
 
-paige local localhost 'spec/**/*.coffee' -p --bail --timeout 30000 --slow 30000
+paige local localhost 'spec/**/*.coffee' --bail --timeout 30000 --slow 30000
 
 kill $PID
