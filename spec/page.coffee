@@ -338,22 +338,32 @@ bescribe "Base Page Object", config, (context, describe, it) ->
         .switchTo(page)
         .onPage()
 
-    describe "#awaits", ->
-      page = Page.extend
-        passed: false
-        pageRoot: "/"
-        waitForAsyncThing: ->
-          @awaits((promise) =>
-            setTimeout(=>
-              @passed = true
-              promise.fulfill()
-            , 1000)
-          )
-          .then =>
-            expect(@passed).to.be.true
+  describe "#awaits", ->
+    page = Page.extend
+      passed: false
+      pageRoot: "/"
+      waitForAsyncThing: ->
+        @awaits((promise) =>
+          setTimeout(=>
+            @passed = true
+            promise.fulfill()
+          , 1000)
+        )
+        .then =>
+          expect(@passed).to.be.true
 
-        it "waits for a promise to be resolved", ->
-          context.Page.build()
-          .switchTo(page)
-          .waitForAsyncThing()
+      it "waits for a promise to be resolved", ->
+        context.Page.build()
+        .switchTo(page)
+        .waitForAsyncThing()
+
+  describe "#uploadImage", ->
+    it "creates an image and uploads", ->
+      context.Page.build()
+      .uploadImage('').then((filePath) ->
+        fs.stat filePath, (err, stat) ->
+          expect(err).to.equal null
+          expect(stat.isFile()).to.be.true
+      )
+
 
