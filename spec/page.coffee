@@ -360,7 +360,7 @@ bescribe "Base Page Object", config, (context, describe, it) ->
   describe "#uploadImage", ->
     it "creates an image and uploads", ->
       context.Page.build()
-      .uploadImage('', '#demo-form input').then((filePath) ->
+      .uploadImage('').then((filePath) ->
         fs.stat filePath, (err, stat) ->
           expect(err).to.equal null
           expect(stat.isFile()).to.be.true
