@@ -29,7 +29,7 @@
     "commander": "~2.1.0",
     "be-spork": "~0.0.4",
     "coffee-script": "~1.6.3",
-    "mocha": "~1.13.0",
+    "mocha": ">=1.13.0",
     "glob": "~3.2.7"
   },
   "devDependencies": {
