@@ -357,7 +357,7 @@ bescribe "Base Page Object", config, (context, describe, it) ->
           .switchTo(page)
           .waitForAsyncThing()
 
-    describe.only "debugger", ->
+    describe "debugger", ->
       it "is so boss", ->
         context.Page.build()
         .debugger()
