@@ -8,7 +8,7 @@
   },
   "main": "index",
   "bin": {
-    "paige": "./lib/cli/index.js"
+    "paige": "bin/paige"
   },
   "repository": {
     "type": "git",
