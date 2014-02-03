@@ -37,6 +37,7 @@ bescribe "WebElement", config, (context, describe, it) ->
         element.click()
       )
 
+
   describe "#hover", ->
     describe "when given a css selector", ->
       it "executes without errors", ->

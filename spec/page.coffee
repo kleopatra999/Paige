@@ -367,3 +367,7 @@ bescribe "Base Page Object", config, (context, describe, it) ->
       )
 
 
+    describe.skip "debugger", ->
+      it "is so boss", ->
+        context.Page.build()
+        .debugger()
