@@ -367,11 +367,11 @@ bescribe "Base Page Object", config, (context, describe, it) ->
       )
 
   describe "#getTextAreaInput", ->
-    it.only "gets the text input", ->
+    it "gets the text input", ->
       testString = 'hello world!'
 
       page = context.Page.build()
-      
+
       page.find("#textarea")
       .sendKeys(testString)
 
