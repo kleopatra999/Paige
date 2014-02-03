@@ -366,8 +366,22 @@ bescribe "Base Page Object", config, (context, describe, it) ->
           expect(stat.isFile()).to.be.true
       )
 
+  describe "#getTextAreaInput", ->
+    it "gets the text input", ->
+      testString = 'hello world!'
 
-    describe.skip "debugger", ->
-      it "is so boss", ->
-        context.Page.build()
-        .debugger()
+      page = context.Page.build()
+
+      page.find("#textarea")
+      .sendKeys(testString)
+
+      page.find("#textarea")
+      .getTextAreaInput().then((input) ->
+        expect(input).to.equal(testString)
+      )
+
+
+  describe.skip "debugger", ->
+    it "is so boss", ->
+      context.Page.build()
+      .debugger()
