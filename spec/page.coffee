@@ -189,8 +189,8 @@ bescribe "Base Page Object", config, (context, describe, it) ->
 
     it "returns a selector that can be chained", ->
       context.Page.build()
-      .find('p:last-child')
-      .find('a')
+      .find('#main-element')
+      .find('p')
 
   describe "#findAll", ->
     it "throws an error if given undefined", ->

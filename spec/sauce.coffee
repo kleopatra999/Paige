@@ -14,7 +14,7 @@ config =
       accessKey: sauce.accessKey
 
 bescribe "Sauce Labs", config, (context, describe, it) ->
-  it "can connect", ->
+  it.skip "can connect", ->
     context.Page.build()
     .open("http://www.google.com")
     .whenDisplayed('#lga')
