@@ -4,8 +4,27 @@
     <link rel="stylesheet" href="/styles.css">
   </head>
   <body>
-    <form id="test-form" action="/form" method="POST">
+    <form id="text-form" action="/form" method="POST">
       <input id="term" type="text" placeholder="Enter a test term!"/>
+      <input class="submit" type="submit" />
+    </form>
+
+    <form id="select-form" action="/form" method="POST">
+      <select id="select">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+      <input class="submit" type="submit" />
+    </form>
+
+    <form id="checkbox-form" action="/form" method="POST">
+      <input type="checkbox"></input>
+      <input class="submit" type="submit" />
+    </form>
+
+    <form id="radio-form" action="/form" method="POST">
+      <input type="radio" value/>
       <input class="submit" type="submit" />
     </form>
   </body>

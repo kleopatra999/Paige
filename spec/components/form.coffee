@@ -17,8 +17,8 @@ bescribe "Form Component", config, (context, describe, it) ->
       page = Page.extend(
         pageRoot: '/form.html'
         forms:
-          search:
-            context: "#test-form"
+          textForm:
+            context: "#text-form"
             submit: ".submit"
             inputs:
               term: "#term"
@@ -26,8 +26,36 @@ bescribe "Form Component", config, (context, describe, it) ->
 
       context.Page.build()
       .redirectTo(page)
-      .enterInformation("search",
-        search: "Behance"
+      .enterInformation("textForm",
+        term: "Behance"
       )
-      .submitForm("search")
-      .whenDisplayed(".success")
+      .find("#term")
+        .getAttribute("value")
+        .then((value) ->
+          expect(value).to.equal("Behance")
+        )
+
+  describe "#fillInSelect", ->
+    it.only "selects the option with the specified value", ->
+      page = Page.extend(
+        pageRoot: '/form.html'
+        forms:
+          selectForm:
+            context: "#select-form"
+            submit: ".submit"
+            inputs:
+              select:
+                selector: "#select"
+                type: 'select'
+      ).with(Form)
+
+      context.Page.build()
+      .redirectTo(page)
+      .enterInformation("selectForm",
+        select: "2"
+      )
+      .find("#select")
+        .getAttribute("value")
+        .then((value) ->
+          expect(value).to.equal("2")
+        )
