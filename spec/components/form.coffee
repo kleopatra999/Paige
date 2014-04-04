@@ -4,7 +4,7 @@ bescribe = require "../../bescribe"
 {expect} = require "chai"
 
 config =
-  address: "http://www.google.com"
+  address: "http://localhost:8282"
   webdriver:
     address: "http://localhost:4444/wd/hub"
     config:
@@ -12,20 +12,22 @@ config =
       browserName: "firefox"
 
 bescribe "Form Component", config, (context, describe, it) ->
-  describe "given inputs and data", ->
-    it "fills in a form", ->
+  describe "#fillInText", ->
+    it "enters data into the text field", ->
       page = Page.extend(
+        pageRoot: '/form.html'
         forms:
           search:
-            context: "#gbqf"
-            submit: "[name=btnG]"
+            context: "#test-form"
+            submit: ".submit"
             inputs:
-              search: "[name=q]"
+              term: "#term"
       ).with(Form)
 
       context.Page.build()
-      .switchTo(page)
+      .redirectTo(page)
       .enterInformation("search",
         search: "Behance"
       )
       .submitForm("search")
+      .whenDisplayed(".success")

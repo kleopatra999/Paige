@@ -8,6 +8,10 @@ http.createServer(function(request, response) {
   var uri = url.parse(request.url).pathname,
       filename = path.join(__dirname, uri);
 
+  if (uri === '/form' && request.method.toLowerCase() === 'post') {
+    filename = path.join(__dirname, '/form_response.html');
+  }
+
   fs.stat(filename, function(err, stat) {
     if (err) {
       response.writeHead(404, {"Content-Type": "text/plain"});
