@@ -14,7 +14,7 @@ config =
 bescribe "Form Component", config, (context, describe, it) ->
   describe "#fillInText", ->
     it "enters data into the text field", ->
-      page = Page.extend(
+      page = Page.extend
         pageRoot: '/form.html'
         forms:
           textForm:
@@ -22,22 +22,20 @@ bescribe "Form Component", config, (context, describe, it) ->
             submit: ".submit"
             inputs:
               term: "#term"
-      ).with(Form)
+      .with Form
 
       context.Page.build()
-      .redirectTo(page)
-      .enterInformation("textForm",
+      .redirectTo page
+      .enterInformation "textForm",
         term: "Behance"
-      )
-      .find("#term")
-        .getAttribute("value")
-        .then((value) ->
-          expect(value).to.equal("Behance")
-        )
+      .find "#term"
+      .getAttribute "value"
+      .then (value) ->
+        expect(value).to.equal "Behance"
 
   describe "#fillInSelect", ->
-    it.only "selects the option with the specified value", ->
-      page = Page.extend(
+    it "selects the option with the specified value", ->
+      page = Page.extend
         pageRoot: '/form.html'
         forms:
           selectForm:
@@ -47,15 +45,36 @@ bescribe "Form Component", config, (context, describe, it) ->
               select:
                 selector: "#select"
                 type: 'select'
-      ).with(Form)
+      .with Form
 
       context.Page.build()
-      .redirectTo(page)
-      .enterInformation("selectForm",
+      .redirectTo page
+      .enterInformation "selectForm",
         select: "2"
-      )
-      .find("#select")
-        .getAttribute("value")
-        .then((value) ->
-          expect(value).to.equal("2")
-        )
+      .find "#select"
+      .getAttribute "value"
+      .then (value) ->
+        expect(value).to.equal "2"
+
+  describe "#fillInRadio", ->
+    it "clicks with the specified value", ->
+      page = Page.extend
+        pageRoot: '/form.html'
+        forms:
+          radioForm:
+            context: "#radio-form"
+            submit: ".submit"
+            inputs:
+              rGroup:
+                selector: "[name=r-group]"
+                type: 'radio'
+      .with Form
+
+      context.Page.build()
+      .redirectTo page
+      .enterInformation "radioForm",
+        rGroup: 2
+      .runOnPage ->
+        document.querySelector("#radio-2").checked
+      .then (checked) ->
+        expect(checked).to.be.true
