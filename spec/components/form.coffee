@@ -101,3 +101,22 @@ bescribe "Form Component", config, (context, describe, it) ->
         document.querySelector("#checkbox-3").checked
       .then (checked) ->
         expect(checked).to.be.true
+
+  describe "#submitForm", ->
+    it "submits the form using the registerd submit button", ->
+      page = Page.extend
+        pageRoot: '/form.html'
+        forms:
+          textForm:
+            context: "#text-form"
+            submit: ".submit"
+            inputs:
+              term: "#term"
+      .with Form
+
+      context.Page.build()
+      .redirectTo page
+      .enterInformation "textForm",
+        term: "Behance"
+      .submitForm("textForm")
+      .whenDisplayed ".success"
