@@ -57,7 +57,7 @@ bescribe "Form Component", config, (context, describe, it) ->
         expect(value).to.equal "2"
 
   describe "#fillInRadio", ->
-    it "clicks with the specified value", ->
+    it "clicks the radio with the specified value", ->
       page = Page.extend
         pageRoot: '/form.html'
         forms:
@@ -76,5 +76,28 @@ bescribe "Form Component", config, (context, describe, it) ->
         rGroup: 2
       .runOnPage ->
         document.querySelector("#radio-2").checked
+      .then (checked) ->
+        expect(checked).to.be.true
+
+  describe "#fillInCheckbox", ->
+    it "clicks the checkbox with the specified value", ->
+      page = Page.extend
+        pageRoot: '/form.html'
+        forms:
+          checkboxForm:
+            context: "#checkbox-form"
+            submit: ".submit"
+            inputs:
+              checkbox3:
+                selector: "#checkbox-3"
+                type: 'checkbox'
+      .with Form
+
+      context.Page.build()
+      .redirectTo page
+      .enterInformation "checkboxForm",
+        checkbox3: 3
+      .runOnPage ->
+        document.querySelector("#checkbox-3").checked
       .then (checked) ->
         expect(checked).to.be.true
