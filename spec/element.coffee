@@ -37,6 +37,31 @@ bescribe "WebElement", config, (context, describe, it) ->
         element.click()
       )
 
+  describe "#hasClass", ->
+    it "returns true if the element has the supplied class", ->
+      context.Page.build()
+      .find('#classy')
+      .hasClass('active')
+      .then((hasClass) ->
+        expect(hasClass).to.be.true
+      )
+
+    it "returns false if the element does not have the supplied class", ->
+      context.Page.build()
+      .find('#classy')
+      .hasClass('foobar')
+      .then((hasClass) ->
+        expect(hasClass).to.be.false
+      )
+
+    it "does not support partial class matching", ->
+      context.Page.build()
+      .find('#classy')
+      # Has class 'active' but not 'act'
+      .hasClass('act')
+      .then((hasClass) ->
+        expect(hasClass).to.be.false
+      )
 
   describe "#hover", ->
     describe "when given a css selector", ->
