@@ -51,10 +51,10 @@ bescribe "Form Component", config, (context, describe, it) ->
       .redirectTo page
       .enterInformation "selectForm",
         select: "2"
-      .find "#select"
-      .getAttribute "value"
-      .then (value) ->
-        expect(value).to.equal "2"
+      .find "#select [value='2']"
+      .isSelected()
+      .then (selected) ->
+        expect(selected).to.be.true
 
   describe "#fillInRadio", ->
     it "clicks the radio with the specified value", ->
