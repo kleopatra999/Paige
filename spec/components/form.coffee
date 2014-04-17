@@ -88,19 +88,58 @@ bescribe "Form Component", config, (context, describe, it) ->
             context: "#checkbox-form"
             submit: ".submit"
             inputs:
-              checkbox3:
-                selector: "#checkbox-3"
+              checkboxes:
+                selector: ".checkboxes"
                 type: 'checkbox'
       .with Form
 
       context.Page.build()
       .redirectTo page
       .enterInformation "checkboxForm",
-        checkbox3: 3
-      .runOnPage ->
-        document.querySelector("#checkbox-3").checked
-      .then (checked) ->
-        expect(checked).to.be.true
+        checkboxes: 2
+      .find "#checkbox-2"
+      .isSelected()
+      .then (selected) ->
+        expect(selected).to.be.true
+
+    it.only "checks the checkbox based on boolean values", ->
+      page = Page.extend
+        pageRoot: '/form.html'
+        forms:
+          checkboxForm:
+            context: "#checkbox-form"
+            submit: ".submit"
+            inputs:
+              checkbox1:
+                selector: "#checkbox-1"
+                type: 'checkbox'
+              checkbox2:
+                selector: "#checkbox-2"
+                type: 'checkbox'
+              checkbox3:
+                selector: "#checkbox-3"
+                type: 'checkbox'
+              checkbox4:
+                selector: "#checkbox-4"
+                type: 'checkbox'
+        verifyChecked: (selector, checked=true) ->
+          @find(selector).isSelected().then((selected) ->
+            expect(selected).to.be.checked
+          )
+          @
+      .with Form
+
+      context.Page.build()
+      .redirectTo page
+      .enterInformation "checkboxForm",
+        checkbox1: true
+        checkbox2: false
+        checkbox3: true
+        checkbox4: false
+      .verifyChecked("#checkbox-1", true)
+      .verifyChecked("#checkbox-2", false)
+      .verifyChecked("#checkbox-3", true)
+      .verifyChecked("#checkbox-4", false)
 
   describe "#submitForm", ->
     it "submits the form using the registerd submit button", ->
