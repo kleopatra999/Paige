@@ -89,20 +89,20 @@ bescribe "Form Component", config, (context, describe, it) ->
             submit: ".submit"
             inputs:
               checkboxes:
-                selector: ".checkboxes"
+                selector: "[name=checkboxes]"
                 type: 'checkbox'
       .with Form
 
       context.Page.build()
       .redirectTo page
       .enterInformation "checkboxForm",
-        checkboxes: 2
+        checkboxes: "2"
       .find "#checkbox-2"
       .isSelected()
       .then (selected) ->
         expect(selected).to.be.true
 
-    it.only "checks the checkbox based on boolean values", ->
+    it "checks the checkbox based on boolean values", ->
       page = Page.extend
         pageRoot: '/form.html'
         forms:
