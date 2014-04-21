@@ -4,7 +4,8 @@
   "description": "Paige is Page Objects. yup.",
   "scripts": {
     "test": "./bin/test",
-    "coverage": "./bin/coverage"
+    "coverage": "./bin/coverage",
+    "test-server": "node ./spec/server/index.js"
   },
   "main": "index",
   "bin": {
