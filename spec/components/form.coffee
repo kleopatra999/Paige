@@ -122,7 +122,7 @@ bescribe "Form Component", config, (context, describe, it) ->
               checkbox4:
                 selector: "#checkbox-4"
                 type: 'checkbox'
-        verifyChecked: (selector, checked=true) ->
+        verifyChecked: (selector, checked) ->
           @find(selector).isSelected().then((selected) ->
             expect(selected).to.be.checked
           )
