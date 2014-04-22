@@ -357,6 +357,70 @@ bescribe "Base Page Object", config, (context, describe, it) ->
         .switchTo(page)
         .waitForAsyncThing()
 
+  describe '#wait', ->
+    page = Page.extend
+      passed: false
+      pageRoot: "/"
+      waitForAsyncThing: (promise) ->
+
+        # The element is already invisible, so this
+        # should return true immediately
+        @wait(() ->
+          return @find("#hidden-element").isDisplayed().then((visible) ->
+            return !visible
+          );
+        )
+
+        # Fulfillment of the promise waits until the
+        # previous wait has finished/resolved
+        @wait(() ->
+          promise.fulfill()
+          return true;
+        )
+
+      waitForFailingThing: (promise) ->
+
+        # The element is
+        @wait(() ->
+          return @find("#hidden-element").isDisplayed().then((visible) ->
+            return visible
+          );
+        )
+
+        # Fulfillment of the promise waits until the
+        # previous wait has finished/resolved
+        @wait(() ->
+          promise.fulfill()
+          return true;
+        )
+
+    it "waits until a given function returns/resolves to true", ->
+      expected = 'foobar'
+
+      p = context.Page.build()
+        .switchTo(page)
+
+      p.awaits((promise) ->
+        p.waitForAsyncThing(promise)
+      )
+
+    it.skip "throws when the timer is reached and the function hasn't resolved to true", ->
+      p = context.Page.build()
+        .switchTo(page)
+
+      # expect(->
+        p.awaits((promise) ->
+          p.waitForFailingThing(promise)
+        )
+        .then(->
+          # Fail since the promise shouldn't fulfill
+          expect(false).to.be.true;
+        , ->
+          expect(true).to.be.true;
+        )
+      # ).to.throw();
+
+
   describe "#uploadImage", ->
     it "creates an image and uploads", ->
       context.Page.build()
