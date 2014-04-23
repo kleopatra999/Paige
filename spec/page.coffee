@@ -366,7 +366,6 @@ bescribe "Base Page Object", config, (context, describe, it) ->
       passed: false
       pageRoot: "/"
       waitForAsyncThing: (promise) ->
-
         # The element is already invisible, so this
         # should return true immediately
         @wait(() ->
