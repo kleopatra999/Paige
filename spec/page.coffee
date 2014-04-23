@@ -2,8 +2,12 @@
 bescribe = require "../bescribe"
 fs = require "fs"
 request = require "request"
-{expect} = require "chai"
+chai = require "chai"
+chaiAsPromised = require "chai-as-promised"
 util = require "util"
+expect = chai.expect
+
+chai.use chaiAsPromised
 
 config =
   address: "http://localhost:8282"
@@ -377,22 +381,13 @@ bescribe "Base Page Object", config, (context, describe, it) ->
           promise.fulfill()
           return true;
         )
-
-      waitForFailingThing: (promise) ->
-
-        # The element is
-        @wait(() ->
+      waitForFailingThing: () ->
+        # The element is invisible and won't be visible
+        return @wait(() ->
           return @find("#hidden-element").isDisplayed().then((visible) ->
             return visible
           );
-        )
-
-        # Fulfillment of the promise waits until the
-        # previous wait has finished/resolved
-        @wait(() ->
-          promise.fulfill()
-          return true;
-        )
+        , 500)
 
     it "waits until a given function returns/resolves to true", ->
       expected = 'foobar'
@@ -404,22 +399,11 @@ bescribe "Base Page Object", config, (context, describe, it) ->
         p.waitForAsyncThing(promise)
       )
 
-    it.skip "throws when the timer is reached and the function hasn't resolved to true", ->
+    it "throws when the timer is reached and the function hasn't resolved to true", ->
       p = context.Page.build()
         .switchTo(page)
 
-      # expect(->
-        p.awaits((promise) ->
-          p.waitForFailingThing(promise)
-        )
-        .then(->
-          # Fail since the promise shouldn't fulfill
-          expect(false).to.be.true;
-        , ->
-          expect(true).to.be.true;
-        )
-      # ).to.throw();
-
+      expect(p.waitForFailingThing()).to.be.rejectedWith Error
 
   describe "#uploadImage", ->
     it "creates an image and uploads", ->
