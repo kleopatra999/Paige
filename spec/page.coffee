@@ -2,8 +2,12 @@
 bescribe = require "../bescribe"
 fs = require "fs"
 request = require "request"
-{expect} = require "chai"
+chai = require "chai"
+chaiAsPromised = require "chai-as-promised"
 util = require "util"
+expect = chai.expect
+
+chai.use chaiAsPromised
 
 config =
   address: "http://localhost:8282"
@@ -356,6 +360,49 @@ bescribe "Base Page Object", config, (context, describe, it) ->
         context.Page.build()
         .switchTo(page)
         .waitForAsyncThing()
+
+  describe '#wait', ->
+    page = Page.extend
+      passed: false
+      pageRoot: "/"
+      waitForAsyncThing: (promise) ->
+        # The element is already invisible, so this
+        # should return true immediately
+        @wait(() ->
+          return @find("#hidden-element").isDisplayed().then((visible) ->
+            return !visible
+          );
+        )
+
+        # Fulfillment of the promise waits until the
+        # previous wait has finished/resolved
+        @wait(() ->
+          promise.fulfill()
+          return true;
+        )
+      waitForFailingThing: () ->
+        # The element is invisible and won't be visible
+        return @wait(() ->
+          return @find("#hidden-element").isDisplayed().then((visible) ->
+            return visible
+          );
+        , 500)
+
+    it "waits until a given function returns/resolves to true", ->
+      expected = 'foobar'
+
+      p = context.Page.build()
+        .switchTo(page)
+
+      p.awaits((promise) ->
+        p.waitForAsyncThing(promise)
+      )
+
+    it "throws when the timer is reached and the function hasn't resolved to true", ->
+      p = context.Page.build()
+        .switchTo(page)
+
+      expect(p.waitForFailingThing()).to.be.rejectedWith Error
 
   describe "#uploadImage", ->
     it "creates an image and uploads", ->
