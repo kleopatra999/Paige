@@ -13,17 +13,17 @@ config =
 
 bescribe "Form Component", config, (context, describe, it) ->
   describe "#fillInText", ->
-    it "enters data into the text field", ->
-      page = Page.extend
-        pageRoot: '/form.html'
-        forms:
-          textForm:
-            context: "#text-form"
-            submit: ".submit"
-            inputs:
-              term: "#term"
-      .with Form
+    page = Page.extend
+      pageRoot: '/form.html'
+      forms:
+        textForm:
+          context: "#text-form"
+          submit: ".submit"
+          inputs:
+            term: "#term"
+    .with Form
 
+    it "enters data into the text field", ->
       context.Page.build()
       .redirectTo page
       .enterInformation "textForm",
@@ -32,6 +32,18 @@ bescribe "Form Component", config, (context, describe, it) ->
       .getAttribute "value"
       .then (value) ->
         expect(value).to.equal "Behance"
+
+    it "clears text before entering new text", ->
+      context.Page.build()
+      .redirectTo page
+      .enterInformation "textForm",
+        term: "Old Value Here"
+      .enterInformation "textForm",
+        term: "New Value Here"
+      .find "#term"
+      .getAttribute "value"
+      .then (value) ->
+        expect(value).to.equal "New Value Here"
 
   describe "#fillInSelect", ->
     it "selects the option with the specified value", ->
