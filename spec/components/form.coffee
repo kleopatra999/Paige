@@ -171,3 +171,30 @@ bescribe "Form Component", config, (context, describe, it) ->
         term: "Behance"
       .submitForm("textForm")
       .whenDisplayed ".success"
+
+  describe "custom input types", ->
+    it "finds the correct fillInType function", ->
+      page = Page.extend
+        pageRoot: '/form.html'
+        forms:
+          textForm:
+            context: "#text-form"
+            submit: ".submit"
+            inputs:
+              term:
+                selector: "#term"
+                type: "custom type"
+
+        fillInCustomType: ($form, selector, data) ->
+          this.fillInText($form, selector, "My Weird Custom Data")
+
+      .with Form
+
+      context.Page.build()
+      .redirectTo page
+      .enterInformation "textForm",
+        term: "Behance"
+      .find "#term"
+      .getAttribute "value"
+      .then (value) ->
+        expect(value).to.equal "My Weird Custom Data"
