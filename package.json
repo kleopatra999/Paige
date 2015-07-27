@@ -25,7 +25,7 @@
     "nbd": "~0.3",
     "chai": "~1.7.2",
     "request": "~2.27.0",
-    "phantom": "~0.5.4",
+    "phantom": "~0.7.2",
     "node-zip": "~1.0.1",
     "commander": "~2.1.0",
     "be-spork": "~0.0.4",
